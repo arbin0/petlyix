@@ -7,7 +7,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div>
       <nav>
-       <Link to="/"><img src={ logo } alt="Logo" className= "logo"/></Link>  <Link to="/">Home</Link> <Link to="/about">About</Link>
+       <Link to="/"><img src={ logo } alt="Logo" className= "logo"/>
+       </Link>  <Link to="/">Home</Link> 
+       <Link to="/about">About</Link>
+       <Link to="/pets">My Pets</Link>
+
       </nav>
       <main>{children}</main>
     </div>
