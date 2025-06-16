@@ -5,17 +5,23 @@ import About from './pages/About';
 import Pets from './pages/Pets';
 import Layout from './layouts/Layout';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
 const App: React.FC = () => {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/pets" element={< Pets />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/pets" element={<Pets />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </QueryClientProvider>
   );
 };
 
