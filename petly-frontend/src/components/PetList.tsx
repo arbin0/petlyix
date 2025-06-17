@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 import { useQuery } from '@tanstack/react-query';
+import { fetchPetData } from '../services/fetchPetData';
 
-const fetchPets = async() => {
-    const response = await fetch(`${baseUrl}/pets/`);
-    if (!response.ok) throw new Error('Failed to Fetch Pets');
-    return response.json();
-};
+interface Pet {
+  id: string;
+  name: string;
+  type: string;
+}
+
 
 const PetList: React.FC = () => {
-const { data: pets, error, isLoading, refetch } = useQuery({
+const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
     queryKey: ['pets'],
-    queryFn: fetchPets,
+    queryFn: () => fetchPetData<Pet[]>('/pets/'),
 
 });
 if (isLoading) return <p>Loading Pets...</p>
