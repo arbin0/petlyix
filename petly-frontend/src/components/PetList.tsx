@@ -1,11 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchPetData } from '../services/fetchPetData';
-
-interface Pet {
-  id: string;
-  name: string;
-  type: string;
-}
+import { fetchPetData, type Pet } from '../services/fetchPetData';
+import { Link } from 'react-router-dom';
 
 
 const PetList: React.FC = () => {
@@ -21,9 +16,10 @@ if (error) return <p>❌ Error: {(error as Error).message}</p>
             <h2>Pets</h2>
             <button onClick={() => refetch()}>🔄 Refresh</button>
             <ul>
-                {pets.map((pet: any)=>(
+                {pets.map((pet)=>(
                     <li key = {pet.id}>
-                        {pet.name} the {pet.type} 
+                        <Link to= {`/pets/${pet.id}`}>{pet.name} the {pet.type}</Link>
+                         
                     </li>
                           
                 ))}
