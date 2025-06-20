@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchPetData, type Pet } from '../services/fetchPetData';
 import { Link } from 'react-router-dom';
 
-
 const PetList: React.FC = () => {
 const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
     queryKey: ['pets'],

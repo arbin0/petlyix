@@ -3,8 +3,16 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 export interface Pet {
   id: string;
   name: string;
-  type: string;
-  
+  type: string;  
+  breed: string;
+}
+
+export interface FoodLog {
+  id: string;
+  name: string;
+  calories: string;
+  logged_time: string;
+  petId: string;
 }
 
 

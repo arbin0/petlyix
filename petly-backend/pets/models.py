@@ -12,7 +12,7 @@ class Pet(models.Model):
 
 class Food_Log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    pets = models.ForeignKey(Pet, on_delete=models.CASCADE) 
+    petId = models.ForeignKey(Pet, on_delete=models.CASCADE) 
     name = models.CharField(max_length = 255)
     calories = models.IntegerField()
     logged_time = models.DateTimeField(default=now, blank=True, null= False)
