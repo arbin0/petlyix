@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchPetData, type Pet } from '../services/fetchPetData';
 import { Link } from 'react-router-dom';
+import { Button, Loader } from '@mantine/core';
 
 const PetList: React.FC = () => {
 const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
@@ -8,12 +9,12 @@ const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
     queryFn: () => fetchPetData<Pet[]>('/pets/'),
 
 });
-if (isLoading) return <p>Loading Pets...</p>
+if (isLoading) return <p><Loader color="blue" />;</p>
 if (error) return <p>❌ Error: {(error as Error).message}</p>
     return(
         <div>
             <h2>Pets</h2>
-            <button onClick={() => refetch()}>🔄 Refresh</button>
+            <Button onClick={() => refetch} variant="light" color="violet">Refresh</Button>
             <ul>
                 {pets.map((pet)=>(
                     <li key = {pet.id}>

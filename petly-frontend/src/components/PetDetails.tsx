@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchPetData, type Pet } from "../services/fetchPetData";
 import { useParams } from 'react-router-dom';
+import { Loader } from '@mantine/core';
 
 const PetDetails: React.FC = () => {
     const { petId } = useParams();
@@ -10,7 +11,7 @@ const PetDetails: React.FC = () => {
         enabled: !!petId,  // only run query if id is defined
 
     });
-if (isLoading) return <p>Loading...</p>
+if (isLoading) return <p><Loader color="blue"/></p>
 if (error) return <p>Error:{(error as Error).message}</p>
 return(
     <div>
