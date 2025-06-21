@@ -17,26 +17,23 @@ const FoodList: React.FC = () => {
         <div>
             <button onClick={() => refetch}>🔄 Refresh</button>
             <table>
-                <tr>
-                <th>
-                    Food Name
-                </th>
-                <th>
-                    Calories
-                </th>
-                <th>
-                    Meal Time
-                </th>
-
-                </tr>
-                {foods.map((food)=> (
-                    <tr key={food.id}>
-                        <td>{food.name}</td><td>{food.calories}</td> <td>{new Date(food.logged_time).toLocaleString()}</td>
-
+                <thead>
+                    <tr>
+                        <th>Food Name</th>
+                        <th>Calories</th>
+                        <th>Meal Time</th>
                     </tr>
-                
-                ))}
-             
+                </thead>
+                <tbody>
+                    {foods.map((food)=> (
+                        <tr key={food.id}>
+                            <td>{food.name}</td>
+                            <td>{food.calories}</td>
+                            <td>{new Date(food.logged_time).toLocaleString()}</td>
+                        </tr>
+                    
+                    ))}
+                </tbody>
             </table>
         </div>
     );
