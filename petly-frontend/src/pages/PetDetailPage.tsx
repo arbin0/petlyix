@@ -1,16 +1,20 @@
 import React from 'react';
 import PetDetails from '../components/PetDetails';
-import FoodList from '../components/FoodList';
+
+import { TableScrollArea } from '../components/TableScrollArea';
+import { GoBack } from '../components/BackNavigation';
 const PetDetailPage: React.FC = () =>{
     return (
     <div>
         <div>
+            <GoBack />
+        </div>
+        <div>
            <PetDetails />
         </div>
         <div>
-            <FoodList />
+            <TableScrollArea />
         </div>
-        
 
     </div>
     )

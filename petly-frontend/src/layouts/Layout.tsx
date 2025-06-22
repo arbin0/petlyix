@@ -1,20 +1,20 @@
 import React from 'react';
-import logo from '../assets/logo.svg';
-import { Link, Outlet } from 'react-router-dom';
+
+import { Outlet } from 'react-router-dom';
+import { HeaderMenu } from '../components/HeaderMenu';
+import { Container } from '@mantine/core';
 
 
 
 const Layout: React.FC = () => {
   return (
     <div>
-      <nav>
-       <Link to="/"><img src={ logo } alt="Logo" className= "logo"/> </Link>  
-       <Link to="/">Home</Link> 
-       <Link to="/about">About</Link>
-       <Link to="/pets">My Pets</Link>
-
-      </nav>
-      <main><Outlet /></main>
+      <HeaderMenu />
+      <main>
+        <Container size="xl">
+          <Outlet />
+        </Container>
+        </main>
     </div>
   );
 };

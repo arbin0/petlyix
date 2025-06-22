@@ -1,11 +1,3 @@
-nav {
-  display: flex;
-  align-items: center;
-  background-color: #F5EFE4;
-  color: white;
-  padding: 5px 20px;
-  font-family: Arial, sans-serif;
-}
 
 .logo {
   width: auto;
