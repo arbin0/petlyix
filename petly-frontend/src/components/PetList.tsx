@@ -9,7 +9,7 @@ const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
     queryFn: () => fetchPetData<Pet[]>('/pets/'),
 
 });
-if (isLoading) return <p><Loader color="blue" />;</p>
+if (isLoading) return <p><Loader color="gray" type="dots" />;</p>
 if (error) return <p>❌ Error: {(error as Error).message}</p>
     return(
         <div>
