@@ -9,6 +9,7 @@ class Pet(models.Model):
     name = models.CharField(max_length= 255, null= False, blank = True)
     type = models.CharField(max_length = 255, null = False, blank= True) #Type means, cat, dog, lizard
     breed = models.CharField(max_length = 255)
+    vets = models.ManyToManyField('Vet_Details', related_name='pets', blank=True)
 
 class Food_Log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -16,4 +17,19 @@ class Food_Log(models.Model):
     name = models.CharField(max_length = 255)
     calories = models.IntegerField()
     logged_time = models.DateTimeField(default=now, blank=True, null= False)
+
+class Vet_Details(models.Model):
+    id = models.UUIDField(primary_key= True, default = uuid.uuid4, null = False)
+    name = models.CharField(max_length=255, null = False)
+    phone = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    main_doctor= models.CharField(max_length=255)
+    #address Fields
+    address_line1 = models.CharField(max_length=255, blank=True)   # e.g., street address, building number
+    address_line2 = models.CharField(max_length=255, blank=True)   # e.g., apartment, suite, unit (optional)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    
    

@@ -1,0 +1,108 @@
+/* Footer Styles */
+.footer {
+  margin-top: 120px;
+  padding-top: calc(var(--mantine-spacing-xl) * 2);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+}
+
+/* Logo Styles */
+.logo {
+  max-width: 200px;
+}
+
+/* Description Styles */
+.description {
+  margin-top: 5px;
+}
+
+/* Inner Container Styles (for main footer layout) */
+.inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Groups Styles (for the columns of links) */
+.groups {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Wrapper for individual link groups/columns */
+.wrapper {
+  width: 160px;
+}
+
+/* Individual Link Styles */
+.link {
+  display: block;
+  /* Dims the links: adjusted from gray-6 to gray-5 for light, and dark-1 to dark-3 for dark */
+  color: light-dark(var(--mantine-color-gray-5), var(--mantine-color-dark-3));
+  font-size: var(--mantine-font-size-sm);
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+/* Hover style for individual links (un-nested) */
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Title Styles for link groups (e.g., "About", "Project", "Community") */
+.title {
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 500;
+  
+  margin-bottom: calc(var(--mantine-spacing-xs) / 2);
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+}
+
+/* Styles for the section after the main footer content (copyright, social icons) */
+.afterFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--mantine-spacing-xl);
+  padding-top: var(--mantine-spacing-xl);
+  padding-bottom: var(--mantine-spacing-xl);
+  border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+}
+
+/* Social Icons Container Styles */
+.social {
+  /* No specific plain CSS rules needed here unless there are base styles */
+}
+
+
+/* --- Media Queries (moved to top level and using pixel value) --- */
+
+@media (max-width: 768px) { /* $mantine-breakpoint-sm is typically 768px */
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .description {
+    margin-top: var(--mantine-spacing-xs);
+    text-align: center;
+  }
+
+  .inner {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .groups {
+    display: none; /* Hides the groups of links on small screens */
+  }
+
+  .afterFooter {
+    flex-direction: column;
+  }
+
+  .social {
+    margin-top: var(--mantine-spacing-xs);
+  }
+}

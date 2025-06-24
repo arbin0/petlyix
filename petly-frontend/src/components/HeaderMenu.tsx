@@ -4,7 +4,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { Logo } from './Logo';
 import classes from '../styles/HeaderMenu.module.css';
 import { Link } from 'react-router-dom';
-
+  
 const links = [
   { link: 'about', label: 'Features' },
   {
@@ -30,7 +30,7 @@ const links = [
   },
 ];
 
-export function HeaderMenu() {
+export const HeaderMenu: React.FC = () => {
   const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => {
