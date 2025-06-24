@@ -16,8 +16,8 @@ if (error) return <p>Error:{(error as Error).message}</p>
 return(
     <div>
         <h2>{pet?.name}</h2>
-        <p>{pet?.type}</p>
-        <p>{pet?.breed}</p>
+        <p>Type: {pet?.type}</p>
+        <p>Breed: {pet?.breed}</p>
     </div>
 );
 
