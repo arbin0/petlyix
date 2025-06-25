@@ -64,7 +64,7 @@ export const FooterMenu: React.FC = () => {
         <div className={classes.logo}>
           <Logo />
           <Text size="xs" c="dimmed" className={classes.description}>
-            Smart Pet Management - Everything Your Pet Deserves
+            Smart Pet Management <br/>Everything Your Pet Deserves
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>

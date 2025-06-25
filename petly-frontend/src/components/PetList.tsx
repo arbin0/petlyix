@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchPetData, type Pet } from '../services/fetchPetData';
 import { Link } from 'react-router-dom';
-import { Button, Loader } from '@mantine/core';
+import { Button, Loader, Grid } from '@mantine/core';
+import { CardDisplay } from './CardDisplay';
 
-const PetList: React.FC = () => {
+const PetList = () => {
 const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
     queryKey: ['pets'],
     queryFn: () => fetchPetData<Pet[]>('/pets/'),
@@ -12,18 +13,27 @@ const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
 if (isLoading) return <p><Loader color="gray" type="dots" />;</p>
 if (error) return <p>❌ Error: {(error as Error).message}</p>
     return(
+        
+
+        
         <div>
             <h2>Pets</h2>
             <Button onClick={() => refetch} variant="light" color="violet">Refresh</Button>
-            <ul>
+            {/* Creating Grid Layout using Grid mantine component, span 6 = 2 items per row, one item = 12 span so 6 is 12/6 = 50% space */}
+            <Grid>
                 {pets.map((pet)=>(
-                    <li key = {pet.id}>
-                        <Link to= {`/pets/${pet.id}`}>{pet.name} the {pet.type}</Link>
+                    <Grid.Col span= {4} key = {pet.id}>
+                        
+                        <Link to= {`/pets/${pet.id}`} style={{ textDecoration: 'none' }}>
+                        {/* {pet.name} the {pet.type} */}
+                        <CardDisplay img_url='dwd' name={pet.name} type={pet.type}  />
+                        </Link>
                          
-                    </li>
+                    </Grid.Col>
                           
                 ))}
-            </ul>
+
+            </Grid>
         </div>
     );
 };

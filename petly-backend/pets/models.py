@@ -9,6 +9,7 @@ class Pet(models.Model):
     name = models.CharField(max_length= 255, null= False, blank = True)
     type = models.CharField(max_length = 255, null = False, blank= True) #Type means, cat, dog, lizard
     breed = models.CharField(max_length = 255)
+    photo_url = models.URLField(max_length=200, null = True)
     vets = models.ManyToManyField('Vet_Details', related_name='pets', blank=True)
 
 class Food_Log(models.Model):

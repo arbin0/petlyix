@@ -1,4 +1,4 @@
-import { ChevronDown } from 'lucide-react';
+import { IconChevronDown } from '@tabler/icons-react';
 import { Burger, Center, Container, Group, Menu } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Logo } from './Logo';
@@ -49,7 +49,7 @@ export const HeaderMenu: React.FC = () => {
             >
               <Center>
                 <span className={classes.linkLabel}>{link.label}</span>
-                <ChevronDown size={16} strokeWidth={0.5} absoluteStrokeWidth />
+                <IconChevronDown width="16" height ="16" />
               </Center>
             </Link>
           </Menu.Target>

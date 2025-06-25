@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from 'lucide-react';
+import { IconArrowLeft } from '@tabler/icons-react';
 import { Button } from "@mantine/core";
 
 export const GoBack:React.FC = () => {
@@ -9,7 +9,7 @@ export const GoBack:React.FC = () => {
     };
     return(
         
-            <Button onClick={ handleGoBack } variant="light" color="gray"><ArrowLeft strokeWidth={0.5}/>Back</Button>
+            <Button onClick={ handleGoBack } variant="light" color="gray"><IconArrowLeft/>Back</Button>
         
         
     );
