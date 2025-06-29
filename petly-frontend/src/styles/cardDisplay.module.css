@@ -1,0 +1,8 @@
+.CardDisplay {
+  transition: transform 0.3s ease;
+}
+
+.CardDisplay:hover {
+  transform: scale(1.05); /* Zoom in slightly */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}

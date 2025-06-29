@@ -11,8 +11,12 @@ class Pet(models.Model):
     breed = models.CharField(max_length = 255)
     photo = models.ImageField(upload_to='pet_photos/', blank=True, null=True)
     vets = models.ManyToManyField('Vet_Details', related_name='pets', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ['created_at']
 
 class Food_Log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

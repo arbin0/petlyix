@@ -1,4 +1,5 @@
 import { Card, Image, Group, Text, Badge } from '@mantine/core';
+import styles from '../styles/cardDisplay.module.css';
 
 
 interface CardProps {
@@ -16,6 +17,7 @@ export const CardDisplay = ({img_url,name,type}:CardProps) => {
     }
     
     return(
+        <div className={styles.CardDisplay}>        
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
                 <Image
@@ -31,6 +33,7 @@ export const CardDisplay = ({img_url,name,type}:CardProps) => {
 
 
         </Card>
+        </div>
     );
 }
 

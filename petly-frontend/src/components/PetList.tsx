@@ -29,7 +29,8 @@ if (error) return <p>❌ Error: {(error as Error).message}</p>
                         {/* {pet.name} the {pet.type} */}
                         
                         <CardDisplay 
-                        img_url={pet.photo ? `${baseMediaUrl}/${pet.photo}` : `${baseMediaUrl}/pet_photos/${pet.type.toLowerCase()}.png`} 
+                        // Checks if the photo field is null or not and if null displays default avatar image depending upon the pet type
+                        img_url={pet.photo ? `${pet.photo}` : `${baseMediaUrl}/pet_photos/${pet.type.toLowerCase()}.png`} 
                         name={pet.name} type={pet.type}  
                         />
                         </Link>
