@@ -5,6 +5,7 @@ export interface Pet {
   name: string;
   type: string;  
   breed: string;
+  photo: string;
 }
 
 export interface FoodLog {

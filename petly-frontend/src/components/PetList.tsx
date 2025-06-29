@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Loader, Grid } from '@mantine/core';
 import { CardDisplay } from './CardDisplay';
 
+const baseMediaUrl = import.meta.env.VITE_MEDIA_BASE_URL;
 const PetList = () => {
 const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
     queryKey: ['pets'],
@@ -26,7 +27,11 @@ if (error) return <p>❌ Error: {(error as Error).message}</p>
                         
                         <Link to= {`/pets/${pet.id}`} style={{ textDecoration: 'none' }}>
                         {/* {pet.name} the {pet.type} */}
-                        <CardDisplay img_url='dwd' name={pet.name} type={pet.type}  />
+                        
+                        <CardDisplay 
+                        img_url={pet.photo ? `${baseMediaUrl}/${pet.photo}` : `${baseMediaUrl}/pet_photos/${pet.type.toLowerCase()}.png`} 
+                        name={pet.name} type={pet.type}  
+                        />
                         </Link>
                          
                     </Grid.Col>

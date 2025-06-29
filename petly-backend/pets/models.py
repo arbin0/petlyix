@@ -9,8 +9,10 @@ class Pet(models.Model):
     name = models.CharField(max_length= 255, null= False, blank = True)
     type = models.CharField(max_length = 255, null = False, blank= True) #Type means, cat, dog, lizard
     breed = models.CharField(max_length = 255)
-    photo_url = models.URLField(max_length=200, null = True)
+    photo = models.ImageField(upload_to='pet_photos/', blank=True, null=True)
     vets = models.ManyToManyField('Vet_Details', related_name='pets', blank=True)
+    def __str__(self):
+        return self.name
 
 class Food_Log(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -18,6 +20,8 @@ class Food_Log(models.Model):
     name = models.CharField(max_length = 255)
     calories = models.IntegerField()
     logged_time = models.DateTimeField(default=now, blank=True, null= False)
+    def __str__(self):
+        return self.name
 
 class Vet_Details(models.Model):
     id = models.UUIDField(primary_key= True, default = uuid.uuid4, null = False)
@@ -32,5 +36,7 @@ class Vet_Details(models.Model):
     state = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
     country = models.CharField(max_length=100, blank=True)
+    def __str__(self):
+        return self.name
     
    
