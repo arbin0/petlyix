@@ -4,6 +4,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { Logo } from './Logo';
 import classes from '../styles/HeaderMenu.module.css';
 import { Link } from 'react-router-dom';
+import SideNavContext from '../context/SideNavBarContext';
+import { useContext } from 'react';
   
 const links = [
   { link: 'about', label: 'Features' },
@@ -31,6 +33,7 @@ const links = [
 ];
 
 export const HeaderMenu: React.FC = () => {
+  const isSideNav = useContext(SideNavContext);
   const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => {
@@ -74,7 +77,8 @@ export const HeaderMenu: React.FC = () => {
     <header className={classes.header}>
       <Container size="xl">
         <div className={classes.inner}>
-          <Link to ="/"><Logo /> </Link>          
+          {!isSideNav && <Link to ="/"><Logo /> </Link>}
+                    
           <Group gap={5} visibleFrom="sm">
             {items}
           </Group>
