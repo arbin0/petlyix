@@ -18,8 +18,8 @@ if (error) return <p>❌ Error: {(error as Error).message}</p>
 
         
         <div>
-            <h2>Pets</h2>
-            <Button onClick={() => refetch} variant="light" color="violet">Refresh</Button>
+            
+            {/* <Button onClick={() => refetch} variant="light" color="violet">Refresh</Button> */}
             {/* Creating Grid Layout using Grid mantine component, span 6 = 2 items per row, one item = 12 span so 6 is 12/6 = 50% space */}
             <Grid>
                 {pets.map((pet)=>(

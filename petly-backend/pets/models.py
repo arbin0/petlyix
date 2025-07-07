@@ -10,6 +10,7 @@ class Pet(models.Model):
     type = models.CharField(max_length = 255, null = False, blank= True) #Type means, cat, dog, lizard
     breed = models.CharField(max_length = 255)
     photo = models.ImageField(upload_to='pet_photos/', blank=True, null=True)
+    dob = models.DateField(null=True, blank=True)
     vets = models.ManyToManyField('Vet_Details', related_name='pets', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
