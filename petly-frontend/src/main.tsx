@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/global.css';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 import { MantineProvider, createTheme } from '@mantine/core';
 
 const theme = createTheme({

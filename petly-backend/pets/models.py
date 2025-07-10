@@ -5,9 +5,15 @@ from django.utils.timezone import now
 # Create your models here.
 
 class Pet(models.Model):
+    PET_TYPES = [
+        ("dog", "Dog"),
+        ("cat", "Cat"),
+        ("fish", "Fish"),
+        ("bird", "Bird"),
+    ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length= 255, null= False, blank = True)
-    type = models.CharField(max_length = 255, null = False, blank= True) #Type means, cat, dog, lizard
+    type = models.CharField(max_length = 255, null = False, blank= True, choices=PET_TYPES) #Type means, cat, dog, lizard
     breed = models.CharField(max_length = 255)
     photo = models.ImageField(upload_to='pet_photos/', blank=True, null=True)
     dob = models.DateField(null=True, blank=True)

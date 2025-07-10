@@ -6,7 +6,7 @@ interface CardProps {
     img_url:string,
     name: string,
     type: string,
-}
+};
 
 export const CardDisplay = ({img_url,name,type}:CardProps) => {
     let badgeColor:string = "pink"

@@ -1,11 +1,22 @@
-import React from 'react';
+
 import PetList from '../components/PetList';
-const Pets: React.FC = () =>{
+import { AddPetModal } from '../components/AddPetModal';
+import { Flex } from '@mantine/core';
+
+const Pets  = () =>{
     return (
+       
     <div>
-        <div>
-            <h2>My Pets</h2>
-        </div>
+       
+        <Flex justify="space-between">
+        
+         <h2>My Pets</h2> 
+         <AddPetModal/> 
+
+        </Flex>
+
+        
+                  
         <div>
            <PetList />
         </div>

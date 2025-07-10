@@ -4,7 +4,7 @@ from .models import Pet, Food_Log, Vet_Details
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
-        fields = '__all__'
+        fields = ['name', 'id', 'type', 'breed', 'photo', 'dob']
 
 class FoodLogSerializer(serializers.ModelSerializer):
     class Meta:
