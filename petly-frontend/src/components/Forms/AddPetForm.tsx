@@ -1,7 +1,9 @@
-import { Button, Select , Group, TextInput } from '@mantine/core';
+import { Button, Select , Group, TextInput, FileInput  } from '@mantine/core';
 import { DateInput  } from '@mantine/dates';
 import { useForm } from '@mantine/form';
+import { IconCloudUpload } from '@tabler/icons-react';
 export const AddPetForm = () => {
+  const icon = <IconCloudUpload stroke={1.25}/>
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const form = useForm({
@@ -10,11 +12,21 @@ export const AddPetForm = () => {
       name: '',
       type: '',
       breed:'',
-      dob: null as Date | null,
-      picture:''
+      dob: '',
+      picture:null as File | null,
     },
     validate: {
       name: (value) => (value.length < 2 ? 'Name too short' : null),
+      picture: (file) => {
+      if (!file) return 'Please upload an image file';
+
+      // check file type starts with "image/"
+      if (!file.type.startsWith('image/')) {
+        return 'Only image files are allowed (Jpeg and Png)';
+      }
+
+      return null; // valid
+    },
       
     },
 
@@ -23,13 +35,8 @@ export const AddPetForm = () => {
 
   return (
        <form onSubmit={form.onSubmit((values) => {
-      // Convert dob (Date object) to string before API
-    //   const formattedDob = values.dob
-    //     ? `${values.dob.getFullYear()}-${String(values.dob.getMonth() + 1).padStart(2, '0')}-${String(values.dob.getDate()).padStart(2, '0')}`
-    //     : null;
-
-    //   const payload = { ...values, dob: formattedDob };
-    //   console.log(payload);
+    // Convert dob (Date object) to string before API
+      console.log(values);
 
       // send payload to your backend
     })}>
@@ -66,6 +73,18 @@ export const AddPetForm = () => {
         clearable
         // 3. USE getInputProps to correctly bind the component
         {...form.getInputProps('dob')}
+      />
+
+       <FileInput
+        leftSection ={icon}
+        label="Pet's Profile Picture"
+        placeholder="Your Pet's Image"
+        leftSectionPointerEvents="none"
+        accept="image/png,image/jpeg"
+        clearable
+        value={form.values.picture}
+        onChange={(file) => form.setFieldValue('picture', file)}
+        error={form.errors.picture}
       />
       
 
