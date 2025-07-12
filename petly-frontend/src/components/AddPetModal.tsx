@@ -1,10 +1,25 @@
-import { OpenModal } from "./OpenModal";
-import { AddPetForm } from "./Forms/AddPetForm";
+import { useDisclosure } from '@mantine/hooks';
+import { Modal, Button } from '@mantine/core';
+import { AddPetForm } from './Forms/AddPetForm';
 
 export const AddPetModal = () => {
-return(
-<OpenModal title="Add New Pets" buttonLabel = "Add New Pet">
-<AddPetForm/>
-</OpenModal>
-);
-}
+  const [opened, { open, close }] = useDisclosure(false);
+
+  return (
+    <>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Add New Pet"
+        centered
+        overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
+      >
+        <AddPetForm closeModal={close} />
+      </Modal>
+
+      <Button variant="default" onClick={open}>
+        Add New Pet
+      </Button>
+    </>
+  );
+};

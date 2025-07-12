@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button, Loader, Grid } from '@mantine/core';
 import { CardDisplay } from './CardDisplay';
 
+
 const baseMediaUrl = import.meta.env.VITE_MEDIA_BASE_URL;
 const PetList = () => {
 const { data: pets = [], error, isLoading, refetch } = useQuery<Pet[]>({
