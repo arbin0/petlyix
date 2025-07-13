@@ -5,7 +5,6 @@ import About from './pages/About';
 import Pets from './pages/Pets';
 import Layout from './layouts/Layout';
 import DashboardLayout from './layouts/DashboardLayout';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PetDetailPage from './pages/PetDetailPage';
 

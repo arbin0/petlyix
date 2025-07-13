@@ -1,19 +1,24 @@
-import React from 'react';
 import PetDetails from '../components/PetDetails';
 
-import { TableScrollArea } from '../components/TableScrollArea';
+import { PetDetailsTable } from '../components/petDetailsTable';
 import { GoBack } from '../components/BackNavigation';
-const PetDetailPage: React.FC = () =>{
+import { DeletePetModal } from '../components/deletePetModal';
+import { Flex } from '@mantine/core';
+const PetDetailPage = () =>{
     return (
     <div>
         <div>
-            <GoBack />
+            <Flex justify={"space-between"}>
+                <GoBack />
+                <DeletePetModal/>
+            </Flex>
+            
         </div>
         <div>
            <PetDetails />
         </div>
         <div>
-            <TableScrollArea />
+            <PetDetailsTable />
         </div>
 
     </div>

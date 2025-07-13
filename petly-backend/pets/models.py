@@ -35,7 +35,7 @@ class Food_Log(models.Model):
         return self.name
 
 class Vet_Details(models.Model):
-    id = models.UUIDField(primary_key= True, default = uuid.uuid4, null = False)
+    id = models.UUIDField(primary_key= True, default = uuid.uuid4, null = False, editable=False)
     name = models.CharField(max_length=255, null = False)
     phone = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
