@@ -1,0 +1,25 @@
+import { PetFoodLogTable } from '../components/PetFoodLogTable';
+
+import { DeletePetModal } from '../components/DeletePetModal';
+import { Flex } from '@mantine/core';
+const PetFeeding = () =>{
+    return (
+    <div>
+        <div>
+            <Flex justify={"space-between"}>
+                <DeletePetModal/>
+            </Flex>
+            
+        </div>
+      
+        <div>
+            <PetFoodLogTable />
+        </div>
+
+    </div>
+    )
+};
+
+
+
+export default PetFeeding;

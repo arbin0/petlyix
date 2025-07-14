@@ -1,21 +1,20 @@
 
 import PetList from '../components/PetList';
 import { AddPetModal } from '../components/AddPetModal';
-import { Flex } from '@mantine/core';
+import { Flex,Space } from '@mantine/core';
 
 const Pets  = () =>{
     return (
        
     <div>
        
-        <Flex justify="space-between">
-        
-         <h2>My Pets</h2> 
+        <Flex justify="flex-end" align="center" >
+                 
          <AddPetModal/> 
 
         </Flex>
 
-        
+        <Space h="xl" />
                   
         <div>
            <PetList />

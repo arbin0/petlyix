@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 
 
 
-export function PetDetailsTable() {
+export function PetFoodLogTable() {
     const { petId } = useParams();
     const { data: foods = [] } = useQuery<FoodLog[]>({
        queryKey: ['foods', petId],

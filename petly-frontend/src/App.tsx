@@ -6,7 +6,9 @@ import Pets from './pages/Pets';
 import Layout from './layouts/Layout';
 import DashboardLayout from './layouts/DashboardLayout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import PetDetailPage from './pages/PetDetailPage';
+import PetFeeding from './pages/PetFeeding';
+import PetHealth from './pages/PetHealth';
+import PetOverview from './pages/PetOverview';
 
 const queryClient = new QueryClient();
 
@@ -26,7 +28,10 @@ const App: React.FC = () => {
           </Route>
           <Route element={<DashboardLayout />}>
               <Route path="pets" element={<Pets />} />
-              <Route path="pets/:petId" element={<PetDetailPage />} />
+              <Route path="pets/:petId" element={<PetOverview />}/>
+                <Route path="pets/:petId/feeding" element={<PetFeeding />} />
+                <Route path="pets/:petId/health" element={<PetHealth />} />
+             
             </Route>
         </Routes>
       </Router>
