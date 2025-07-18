@@ -36,8 +36,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
+    'pets', 
     'rest_framework',
-    'pets',
     'corsheaders',
     'django.contrib.admin', 
     'django.contrib.auth',
@@ -63,6 +64,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 ROOT_URLCONF = 'petly.urls'
+
+AUTH_USER_MODEL = 'users.User'
 
 TEMPLATES = [
     {

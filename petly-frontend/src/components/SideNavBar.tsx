@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import {
  
   IconBellRinging,
   IconFirstAidKit,
   IconLogout,
+  IconDeviceDesktopAnalytics,
   IconBowl,
   IconSettings,
   IconSwitchHorizontal,
@@ -12,7 +12,7 @@ import { Code, Group } from '@mantine/core';
 import { Logo } from './Logo';
 import classes from '../styles/SideNavBar.module.css';
 import { NavLink } from 'react-router-dom';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -26,7 +26,7 @@ const generalLinks = [
 ];
 
 const petSpecificLinks = [
-  { link: `/pets/${petId}`, label: 'Overview', icon: IconBowl },
+  { link: `/pets/${petId}`, label: 'Overview', icon: IconDeviceDesktopAnalytics },
   { link: `/pets/${petId}/feeding`, label: 'Feeding', icon: IconBowl },
   { link: `/pets/${petId}/health`, label: 'Health', icon: IconFirstAidKit },
   { link: `/pets/${petId}/settings`, label: 'Pet Settings', icon: IconSettings },

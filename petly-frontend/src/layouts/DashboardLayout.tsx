@@ -28,7 +28,7 @@ const DashboardLayout = () => {
       )}
         
         <main style={{ flex: 1 }}>
-          <Container size="xl" pt="md">
+          <Container size="xl">
             <Outlet />
           </Container>
         </main>

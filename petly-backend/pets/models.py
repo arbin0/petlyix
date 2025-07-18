@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.utils.timezone import now
 
+
 # Create your models here.
 
 class Pet(models.Model):
@@ -49,5 +50,3 @@ class Vet_Details(models.Model):
     country = models.CharField(max_length=100, blank=True)
     def __str__(self):
         return self.name
-    
-   
