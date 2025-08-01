@@ -71,7 +71,7 @@ export const FooterMenu: React.FC = () => {
       </Container>
       <Container className={classes.afterFooter} size = "xl">
         <Text c="dimmed" size="sm">
-          © {currentDate.getFullYear()} petly.com. All rights reserved.
+          © {currentDate.getFullYear()} petlyix.com. All rights reserved.
         </Text>
 
         <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">
