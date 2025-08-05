@@ -8,11 +8,6 @@
 
 ---
 
-
-> ⚠️ Note: This project is under active development and is not yet deployed.
-
----
-
 ## 🚀 Current Features (as per codebase)
 
 ### ✅ Backend (Django + DRF)
