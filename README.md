@@ -20,8 +20,9 @@
 
 ### ⚙️ Frontend (React)
 - React app bootstrapped with `create-react-app`
+- Mantine UI for UI components
 - Basic page routing using React Router
-- Axios setup for API communication
+- React Query setup for API communication
 - Components and pages scaffolded for authentication and pet management
 
 ---
