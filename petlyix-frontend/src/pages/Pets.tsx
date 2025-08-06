@@ -1,6 +1,6 @@
 
 import PetList from '../components/PetList';
-import { AddPetModal } from '../components/AddPetModal';
+import { AddPetModal } from '../components/Modals/AddPetModal';
 import { Flex,Space } from '@mantine/core';
 
 const Pets  = () =>{

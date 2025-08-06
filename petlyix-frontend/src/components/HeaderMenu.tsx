@@ -1,11 +1,12 @@
 import { IconChevronDown } from '@tabler/icons-react';
-import { Burger, Center, Container, Group, Menu } from '@mantine/core';
+import { Burger, Center, Container, Group, Menu} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Logo } from './Logo';
 import classes from '../styles/HeaderMenu.module.css';
 import { Link } from 'react-router-dom';
 import SideNavContext from '../context/SideNavBarContext';
 import { useContext } from 'react';
+import { AuthModal } from './Modals/AuthModal';
   
 const links = [
   { link: 'about', label: 'Features' },
@@ -35,6 +36,9 @@ const links = [
 export const HeaderMenu: React.FC = () => {
   const isSideNav = useContext(SideNavContext);
   const [opened, { toggle }] = useDisclosure(false);
+
+   // Use useDisclosure for login modal state
+
 
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
@@ -81,8 +85,17 @@ export const HeaderMenu: React.FC = () => {
                     
           <Group gap={5} visibleFrom="sm">
             {items}
+             <Group ml="auto" visibleFrom="sm">
+             
+                <AuthModal type = "login"/>
+                <AuthModal type = "signup"/>
+              
+             
+            </Group>
           </Group>
+        
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+           
         </div>
       </Container>
     </header>

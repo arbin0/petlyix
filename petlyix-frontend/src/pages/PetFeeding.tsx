@@ -1,6 +1,6 @@
 import { PetFoodLogTable } from '../components/PetFoodLogTable';
 
-import { DeletePetModal } from '../components/DeletePetModal';
+import { DeletePetModal } from '../components/Modals/DeletePetModal';
 import { Flex } from '@mantine/core';
 const PetFeeding = () =>{
     return (

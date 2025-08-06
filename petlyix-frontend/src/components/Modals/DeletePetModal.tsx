@@ -1,6 +1,6 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button,Group } from '@mantine/core';
-import { deleteData } from '../services/deleteData';
+import { deleteData } from '../../services/deleteData';
 import { useParams,useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';

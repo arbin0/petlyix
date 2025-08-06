@@ -1,3 +1,4 @@
+import re
 from .models import User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
@@ -20,6 +21,14 @@ class UserRegistrationSerialiazer(serializers.ModelSerializer):
         password = attrs.get("password1", "")
         if len(password) < 8:
             raise serializers.ValidationError("Passwords Must Be At Least 8 Characters Long!")
+        if not re.search(r"\d", password):
+            raise serializers.ValidationError("Password must include at least one number.")
+        if not re.search(r"[a-z]", password):
+            raise serializers.ValidationError("Password must include at least one lowercase letter.")
+        if not re.search(r"[A-Z]", password):
+            raise serializers.ValidationError("Password must include at least one uppercase letter.")
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+            raise serializers.ValidationError("Password must include at least one special symbol.")
         return attrs
     
     def create(self, validated_data):

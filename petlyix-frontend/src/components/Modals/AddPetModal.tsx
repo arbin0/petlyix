@@ -1,6 +1,6 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button } from '@mantine/core';
-import { AddPetForm } from './Forms/AddPetForm';
+import { AddPetForm } from '../Forms/AddPetForm';
 
 export const AddPetModal = () => {
   const [opened, { open, close }] = useDisclosure(false);
