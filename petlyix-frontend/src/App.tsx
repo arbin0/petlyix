@@ -9,6 +9,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PetFeeding from './pages/PetFeeding';
 import PetHealth from './pages/PetHealth';
 import PetOverview from './pages/PetOverview';
+import { SignUpForm } from './components/Forms/SignUpForm';
+
 
 const queryClient = new QueryClient();
 
@@ -21,7 +23,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-
+            
             {/* Nested dashboard layout for pets routes */}
             
 

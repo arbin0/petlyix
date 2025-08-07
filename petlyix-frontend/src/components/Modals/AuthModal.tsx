@@ -20,7 +20,7 @@ export const AuthModal = ({type}: AuthModalProps) => {
         centered
         overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
       >
-         {type === 'login' ? <LoginForm /> : <SignUpForm />}
+         {type === 'login' ? <LoginForm /> : <SignUpForm closeModal={close}/>}
       </Modal>
 
       <Button variant={type === 'login' ? "default" : "filled"} onClick={open}>

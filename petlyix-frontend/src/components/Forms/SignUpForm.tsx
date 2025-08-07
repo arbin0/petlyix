@@ -9,9 +9,11 @@ import {
   Button,
   Center,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { useForm, isEmail} from '@mantine/form';
 
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { IconCheck, IconX, } from '@tabler/icons-react';
+import { postData } from '../../services/postData';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
@@ -43,11 +45,18 @@ function getStrength(password1: string) {
   return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
 }
 
-export const SignUpForm =() => {
+interface SignUpProps{
+  closeModal:() => void
+}
+
+export const SignUpForm =({closeModal }: SignUpProps) => {
+  const xIcon = <IconX size={20} />;
+  const checkIcon = <IconCheck size={20} />;
   const form = useForm({
     initialValues: {
       firstname: '',
       lastname: '',
+      username:'',
       email: '',
       password1: '',
       password2: ''
@@ -57,16 +66,20 @@ export const SignUpForm =() => {
 
     validate: {
       firstname : (value) => {
-        if (!value || value.trim() === '') return 'Firstname ss Required';
+        if (!value || value.trim() === '') return 'Firstname iss Required';
         return null;
       },
       lastname : (value) => {
         if (!value || value.trim() === '') return 'Lastname is Required';
         return null;
       },
+       username : (value) => {
+        if (!value || value.trim() === '') return 'Username is Required';
+        return null;
+      },
       email: isEmail('Invalid email Address'),
       password1: (value) => {
-        if (value.length < 6) return 'Must be at least 6 characters';
+        if (value.length < 8) return 'Must be at least 8 characters';
         if (!/[a-z]/.test(value)) return 'Must include a lowercase letter';
         if (!/[A-Z]/.test(value)) return 'Must include an uppercase letter';
         if (!/\d/.test(value)) return 'Must include a number';
@@ -107,7 +120,31 @@ export const SignUpForm =() => {
 
   return (
     <Box maw={400} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit(async (values) => {
+            try{
+              await postData('/users/register/', values);
+              console.log("User Created!")
+              notifications.show({
+                title: 'Successful!',
+                message: 'You have been successfully registered!',
+                color: 'teal',
+                icon: checkIcon,
+              });
+              form.reset();
+              closeModal();
+            }
+            catch (error){
+              console.log(error)
+              notifications.show({
+                title: 'Error!',
+                message: 'We Encountered Some Error! Please Try Again',
+                color: 'red',
+                icon: xIcon,
+
+              });
+              
+            }
+            })}>
         <TextInput
           label="First Name"
           placeholder="John"
@@ -119,6 +156,12 @@ export const SignUpForm =() => {
           placeholder="Smith"
           withAsterisk
           {...form.getInputProps('lastname')}
+        />
+         <TextInput
+          label="Username"
+          placeholder="Username123"
+          withAsterisk
+          {...form.getInputProps('username')}
         />
         <TextInput
           label="Email"
@@ -140,7 +183,7 @@ export const SignUpForm =() => {
         </Group>
           
 
-        <PasswordRequirement label="Has at least 6 characters" meets={password1.length > 5} />
+        <PasswordRequirement label="Has at least 8 characters" meets={password1.length > 5} />
         {checks}
         <PasswordInput
         mt="sm"
@@ -151,8 +194,8 @@ export const SignUpForm =() => {
         />
 
 
-        <Button type="submit" mt="md">
-          Submit
+        <Button type="submit" mt="md" disabled={!form.isValid() || form.submitting}>
+            Sign Up
         </Button>
       </form>
     </Box>
