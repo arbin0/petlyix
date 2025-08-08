@@ -119,7 +119,7 @@ export const SignUpForm =({closeModal }: SignUpProps) => {
   ));
 
   return (
-    <Box maw={400} mx="auto">
+   
       <form onSubmit={form.onSubmit(async (values) => {
             try{
               await postData('/users/register/', values);
@@ -145,18 +145,20 @@ export const SignUpForm =({closeModal }: SignUpProps) => {
               
             }
             })}>
-        <TextInput
-          label="First Name"
-          placeholder="John"
-          withAsterisk
-          {...form.getInputProps('firstname')}
-        />
-        <TextInput
-          label="Last Name"
-          placeholder="Smith"
-          withAsterisk
-          {...form.getInputProps('lastname')}
-        />
+        <Group grow>
+          <TextInput
+            label="First Name"
+            placeholder="John"
+            withAsterisk
+            {...form.getInputProps('firstname')}
+          />
+          <TextInput
+            label="Last Name"
+            placeholder="Smith"
+            withAsterisk
+            {...form.getInputProps('lastname')}
+          />
+        </Group> 
          <TextInput
           label="Username"
           placeholder="Username123"
@@ -198,6 +200,6 @@ export const SignUpForm =({closeModal }: SignUpProps) => {
             Sign Up
         </Button>
       </form>
-    </Box>
+   
   );
 }

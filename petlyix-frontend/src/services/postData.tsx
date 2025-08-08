@@ -15,7 +15,7 @@ export const postData = async <T, R>(
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.detail || 'Failed to post data');
+    throw errorData;
   }
 
   return response.json();
