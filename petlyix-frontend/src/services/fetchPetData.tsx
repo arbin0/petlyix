@@ -18,8 +18,12 @@ export interface FoodLog {
 }
 
 
+
 export const fetchPetData = async <T,>(endpoint: string): Promise<T> => {
-    const response = await fetch(`${baseUrl}${endpoint}`);
+    const token = localStorage.getItem("accessToken");
+    const response = await fetch(`${baseUrl}${endpoint}`, {
+      headers: {'Authorization': `Bearer ${token}`}
+    });
     if (!response.ok) throw new Error('Failed to Fetch Pets');
     return response.json();
 };

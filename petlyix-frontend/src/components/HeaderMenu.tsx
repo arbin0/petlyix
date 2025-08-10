@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@tabler/icons-react';
-import { Burger, Center, Container, Group, Menu} from '@mantine/core';
+import { Burger, Button, Center, Container, Group, Menu} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Logo } from './Logo';
 import classes from '../styles/HeaderMenu.module.css';
@@ -7,7 +7,11 @@ import { Link } from 'react-router-dom';
 import SideNavContext from '../context/SideNavBarContext';
 import { useContext } from 'react';
 import { AuthModal } from './Modals/AuthModal';
-  
+import { useEffect, useState } from 'react';
+import { postData } from '../services/postData';
+
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const links = [
   { link: 'about', label: 'Features' },
   {
@@ -34,6 +38,72 @@ const links = [
 ];
 
 export const HeaderMenu: React.FC = () => {
+
+  // Authentication Logic start
+  const [username, setUsername] = useState<string | null>(null);
+  const [isLoggedIn, setLoggedIn] = useState<boolean | null>(null);
+  useEffect(()=>{
+    const checkLoggedIn = async () =>{
+       try {
+          const token = localStorage.getItem("accessToken");
+          if (token){
+          const response = await fetch(`${baseUrl}/users/user/`, {
+            headers: {'Authorization': `Bearer ${token}`}
+          });
+          if (!response.ok) throw new Error("Failed to fetch user");
+          const data = await response.json();
+          setLoggedIn(true);
+          setUsername(data.username);
+          }
+          else{
+            setLoggedIn(false);
+            setUsername("");
+          }
+        
+        
+        }
+        catch (error) {
+        setLoggedIn(false);
+        setUsername("");
+      }
+    };
+    checkLoggedIn()
+  },[])
+
+
+
+  const handleLogout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    const token = localStorage.getItem("accessToken");
+    const clearLocalState = () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      setLoggedIn(false);
+      setUsername("");
+      };
+    
+    if (!refreshToken) {
+    clearLocalState();
+    return;
+    }
+  try {
+   await fetch(`${baseUrl}/users/logout/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ refresh: refreshToken }),
+      });
+  }    
+   
+   catch (error) {
+    console.warn("Server logout failed, but continuing with local logout:", error);
+    
+  }
+   clearLocalState();
+};
+
+
+
+  // Authentication Logic End
   const isSideNav = useContext(SideNavContext);
   const [opened, { toggle }] = useDisclosure(false);
 
@@ -85,13 +155,24 @@ export const HeaderMenu: React.FC = () => {
                     
           <Group gap={5} visibleFrom="sm">
             {items}
-             <Group ml="auto" visibleFrom="sm">
-             
+            
+          <Group ml="auto" visibleFrom="sm">
+             {isLoggedIn ? (
+                <> 
+                Hi {username}
+                <Button onClick={handleLogout}>Logout</Button>
+                </>
+                ):(
+                   
+                <>
                 <AuthModal type = "login"/>
                 <AuthModal type = "signup"/>
-              
-             
+                </>
+            )}
+                           
             </Group>
+            
+             
           </Group>
         
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />

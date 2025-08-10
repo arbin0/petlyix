@@ -3,16 +3,19 @@ from django.http import HttpResponse
 from .serializers import PetSerializer, FoodLogSerializer, VetSerializer
 from rest_framework import viewsets
 from .models import Pet, Food_Log, Vet_Details
+from rest_framework.permissions import IsAuthenticated
 
 def index(request):
    return HttpResponse("Wassup Randis")
 
 class PetViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     serializer_class = PetSerializer
     queryset = Pet.objects.all()
    
    
 class FoodLogViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Food_Log.objects.all() #This is just saying Select * From Pet
     serializer_class = FoodLogSerializer
      #Here the query set is created, this query set contains all the DB queries, it creates SQL queries and commmunicates with DB accordingly
@@ -26,6 +29,7 @@ class FoodLogViewSet(viewsets.ModelViewSet):
         return queryset
 
 class VetViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Vet_Details.objects.all() #This is just saying Select * From Pet
     serializer_class = VetSerializer
      #Here the query set is created, this query set contains all the DB queries, it creates SQL queries and commmunicates with DB accordingly

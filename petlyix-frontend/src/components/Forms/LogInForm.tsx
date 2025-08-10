@@ -18,7 +18,6 @@ interface LoginFormProps{
 
 export const LoginForm =({closeModal}: LoginFormProps) => {
   const [errorMessage , setErrorMessage] = useState<string | null>(null);;
-  const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
   const form = useForm({
     initialValues: {
