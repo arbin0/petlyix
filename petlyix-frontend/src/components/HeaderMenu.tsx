@@ -8,10 +8,9 @@ import SideNavContext from '../context/SideNavBarContext';
 import { useContext } from 'react';
 import { AuthModal } from './Modals/AuthModal';
 import { useEffect, useState } from 'react';
-import { postData } from '../services/postData';
+import { authApi } from '../api/auth';
+import { api } from '../api/client';
 
-
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const links = [
   { link: 'about', label: 'Features' },
   {
@@ -38,77 +37,47 @@ const links = [
 ];
 
 export const HeaderMenu: React.FC = () => {
-
   // Authentication Logic start
   const [username, setUsername] = useState<string | null>(null);
   const [isLoggedIn, setLoggedIn] = useState<boolean | null>(null);
-  useEffect(()=>{
-    const checkLoggedIn = async () =>{
-       try {
-          const token = localStorage.getItem("accessToken");
-          if (token){
-          const response = await fetch(`${baseUrl}/users/user/`, {
-            headers: {'Authorization': `Bearer ${token}`}
-          });
-          if (!response.ok) throw new Error("Failed to fetch user");
-          const data = await response.json();
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+          // Use the new API client
+          const userData = await api.get('/users/user/');
           setLoggedIn(true);
-          setUsername(data.username);
-          }
-          else{
-            setLoggedIn(false);
-            setUsername("");
-          }
-        
-        
+          setUsername(userData.username);
+        } else {
+          setLoggedIn(false);
+          setUsername("");
         }
-        catch (error) {
+      } catch (error) {
         setLoggedIn(false);
         setUsername("");
       }
     };
-    checkLoggedIn()
-  },[])
-
-
+    checkLoggedIn();
+  }, []);
 
   const handleLogout = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    const token = localStorage.getItem("accessToken");
-    const clearLocalState = () => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+    try {
+      await authApi.logout(); // Use the new auth API
       setLoggedIn(false);
       setUsername("");
-      };
-    
-    if (!refreshToken) {
-    clearLocalState();
-    return;
+    } catch (error) {
+      console.warn("Logout error:", error);
+      // Still clear local state even if server logout fails
+      setLoggedIn(false);
+      setUsername("");
     }
-  try {
-   await fetch(`${baseUrl}/users/logout/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ refresh: refreshToken }),
-      });
-  }    
-   
-   catch (error) {
-    console.warn("Server logout failed, but continuing with local logout:", error);
-    
-  }
-   clearLocalState();
-};
-
-
+  };
 
   // Authentication Logic End
   const isSideNav = useContext(SideNavContext);
   const [opened, { toggle }] = useDisclosure(false);
-
-   // Use useDisclosure for login modal state
-
 
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
@@ -126,7 +95,7 @@ export const HeaderMenu: React.FC = () => {
             >
               <Center>
                 <span className={classes.linkLabel}>{link.label}</span>
-                <IconChevronDown width="16" height ="16" />
+                <IconChevronDown width="16" height="16" />
               </Center>
             </Link>
           </Menu.Target>
@@ -140,7 +109,6 @@ export const HeaderMenu: React.FC = () => {
         key={link.label}
         to={link.link}
         className={classes.link}
-        
       >
         {link.label}
       </Link>
@@ -151,34 +119,29 @@ export const HeaderMenu: React.FC = () => {
     <header className={classes.header}>
       <Container size="xl">
         <div className={classes.inner}>
-          {!isSideNav && <Link to ="/"><Logo /> </Link>}
+          {!isSideNav && <Link to="/"><Logo /></Link>}
                     
           <Group gap={5} visibleFrom="sm">
             {items}
             
-          <Group ml="auto" visibleFrom="sm">
-             {isLoggedIn ? (
-                <> 
-                Hi {username}
-                <Button onClick={handleLogout}>Logout</Button>
-                </>
-                ):(
-                   
+            <Group ml="auto" visibleFrom="sm">
+              {isLoggedIn ? (
                 <>
-                <AuthModal type = "login"/>
-                <AuthModal type = "signup"/>
+                  Hi {username}
+                  <Button onClick={handleLogout}>Logout</Button>
                 </>
-            )}
-                           
+              ) : (
+                <>
+                  <AuthModal type="login"/>
+                  <AuthModal type="signup"/>
+                </>
+              )}
             </Group>
-            
-             
           </Group>
         
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-           
         </div>
       </Container>
     </header>
   );
-}
+};
