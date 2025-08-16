@@ -4,6 +4,7 @@ from .serializers import PetSerializer, FoodLogSerializer, VetSerializer
 from rest_framework import viewsets
 from .models import Pet, Food_Log, Vet_Details
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import ValidationError
 
 def index(request):
    return HttpResponse("Wassup Randis")
@@ -11,35 +12,38 @@ def index(request):
 class PetViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = PetSerializer
-    queryset = Pet.objects.all()
+    queryset = Pet.objects.all()  # <-- required for DRF router
+     
+    def get_queryset(self):
+        return self.queryset.filter(ownerId=self.request.user.id)
    
    
 class FoodLogViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Food_Log.objects.all() #This is just saying Select * From Pet
     serializer_class = FoodLogSerializer
-     #Here the query set is created, this query set contains all the DB queries, it creates SQL queries and commmunicates with DB accordingly
+    queryset = Food_Log.objects.all()
+
     def get_queryset(self):
-        queryset = self.queryset #Just saying this local queryset is the one from the main class, need to override the main querySet
-        pet_id = self.request.query_params.get('petId') #Checks weather the URL parameters contains 'petId' or not 
-        #If yes then it queries the DB where prtId = the valu passed in the URL parameter
-        # E.g:  So /api/foodlogs/?petid=123 will get values where petId =123
-        if pet_id:
-            return queryset.filter(petId=pet_id) 
-        return queryset
+        pet_id = self.request.query_params.get('petId')
+        if not pet_id:
+            raise ValidationError("petId query parameter is required.")
+        if not Pet.objects.filter(id=pet_id, ownerId=self.request.user.id).exists():
+            raise ValidationError("You do not have permission to access this pet's food logs.")
+        return self.queryset.filter(petId=pet_id)
+
 
 class VetViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Vet_Details.objects.all() #This is just saying Select * From Pet
     serializer_class = VetSerializer
-     #Here the query set is created, this query set contains all the DB queries, it creates SQL queries and commmunicates with DB accordingly
+    queryset = Vet_Details.objects.all()
+
     def get_queryset(self):
-        queryset = self.queryset #Just saying this local queryset is the one from the main class, need to override the main querySet
-        pet_id = self.request.query_params.get('petId') #Checks weather the URL parameters contains 'petId' or not 
-        #If yes then it queries the DB where prtId = the valu passed in the URL parameter
-        # E.g:  So /api/vets/?petid=123 will get values where petId =123
-        if pet_id:
-            return queryset.filter(petId=pet_id) 
-        return queryset
+        pet_id = self.request.query_params.get('petId')
+        if not pet_id:
+            raise ValidationError("petId query parameter is required.")
+        if not Pet.objects.filter(id=pet_id, ownerId=self.request.user.id).exists():
+            raise ValidationError("You do not have permission to access this pet's Vet details.")
+        return self.queryset.filter(petId=pet_id)
+       
 
     

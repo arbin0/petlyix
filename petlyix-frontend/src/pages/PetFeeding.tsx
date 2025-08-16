@@ -7,7 +7,7 @@ const PetFeeding = () =>{
     <div>
         <div>
             <Flex justify={"space-between"}>
-                <DeletePetModal/>
+                Move delete in manage Pet PAge<DeletePetModal/>
             </Flex>
             
         </div>

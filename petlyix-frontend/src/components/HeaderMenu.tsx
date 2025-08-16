@@ -10,6 +10,7 @@ import { AuthModal } from './Modals/AuthModal';
 import { useEffect, useState } from 'react';
 import { authApi } from '../api/auth';
 import { api } from '../api/client';
+import { useAuth } from '../hooks/useAuth';
 
 const links = [
   { link: 'about', label: 'Features' },
@@ -38,42 +39,10 @@ const links = [
 
 export const HeaderMenu: React.FC = () => {
   // Authentication Logic start
-  const [username, setUsername] = useState<string | null>(null);
-  const [isLoggedIn, setLoggedIn] = useState<boolean | null>(null);
+  const {isAuthenticated, logout, username} = useAuth()
+ 
+  
 
-  useEffect(() => {
-    const checkLoggedIn = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        if (token) {
-          // Use the new API client
-          const userData = await api.get('/users/user/');
-          setLoggedIn(true);
-          setUsername(userData.username);
-        } else {
-          setLoggedIn(false);
-          setUsername("");
-        }
-      } catch (error) {
-        setLoggedIn(false);
-        setUsername("");
-      }
-    };
-    checkLoggedIn();
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await authApi.logout(); // Use the new auth API
-      setLoggedIn(false);
-      setUsername("");
-    } catch (error) {
-      console.warn("Logout error:", error);
-      // Still clear local state even if server logout fails
-      setLoggedIn(false);
-      setUsername("");
-    }
-  };
 
   // Authentication Logic End
   const isSideNav = useContext(SideNavContext);
@@ -125,10 +94,10 @@ export const HeaderMenu: React.FC = () => {
             {items}
             
             <Group ml="auto" visibleFrom="sm">
-              {isLoggedIn ? (
+              {isAuthenticated ? (
                 <>
                   Hi {username}
-                  <Button onClick={handleLogout}>Logout</Button>
+                  <Button onClick={logout}>Logout</Button>
                 </>
               ) : (
                 <>

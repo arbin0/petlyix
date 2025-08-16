@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.utils.timezone import now
+from django.conf import settings
 
 
 # Create your models here.
@@ -19,6 +20,7 @@ class Pet(models.Model):
     photo = models.ImageField(upload_to='pet_photos/', blank=True, null=True)
     dob = models.DateField(null=True, blank=True)
     vets = models.ManyToManyField('Vet_Details', related_name='pets', blank=True)
+    ownerId = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name ='pets', null= False, blank = False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     def __str__(self):

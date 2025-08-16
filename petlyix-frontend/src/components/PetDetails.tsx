@@ -4,6 +4,7 @@ import { type Pet } from "../types/api";
 import { useParams } from 'react-router-dom';
 import { Loader } from '@mantine/core';
 
+
 export const PetDetails: React.FC = () => {
     const { petId } = useParams();
     

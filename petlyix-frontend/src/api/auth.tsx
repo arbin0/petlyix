@@ -22,16 +22,4 @@ export const authApi = {
     }
   },
  
-  // Manual token refresh (usually automatic)
-  refreshToken: (): Promise<TokenResponse> => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    
-    if (!refreshToken) {
-      throw new Error('No refresh token available');
-    }
-    
-    return api.post<TokenResponse, { refresh: string }>('/users/token/refresh/', {
-      refresh: refreshToken
-    });
-  },
 };

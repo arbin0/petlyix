@@ -10,6 +10,7 @@ import { IconCheck } from '@tabler/icons-react';
 import { authApi } from '../../api/auth';
 import { useState } from 'react';
 
+
 interface LoginFormProps {
   closeModal: () => void;
 }
@@ -65,7 +66,9 @@ export const LoginForm = ({ closeModal }: LoginFormProps) => {
           }
         
         form.reset();
+       
         closeModal();
+        
         
         // Trigger page refresh or state update for header
         // window.location.reload();
