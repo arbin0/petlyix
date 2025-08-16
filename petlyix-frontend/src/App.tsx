@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Pets from './pages/Pets';
+import Register from './pages/register';
+import Login from './pages/login';
 import Layout from './layouts/Layout';
 import DashboardLayout from './layouts/DashboardLayout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -23,6 +25,8 @@ const App: React.FC = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path ="signup" element = {<Register />} />
+            <Route path ="login" element = {<Login />} />
             
             {/* Nested dashboard layout for pets routes */}
             

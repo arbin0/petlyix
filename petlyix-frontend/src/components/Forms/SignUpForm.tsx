@@ -12,6 +12,7 @@ import { notifications } from '@mantine/notifications';
 import { useForm, isEmail } from '@mantine/form';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { api } from '../../api/client';
+import { useState } from 'react';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
@@ -43,11 +44,9 @@ function getStrength(password1: string) {
   return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
 }
 
-interface SignUpProps {
-  closeModal: () => void;
-}
 
-export const SignUpForm = ({ closeModal }: SignUpProps) => {
+export const SignUpForm = () => {
+  const [errorMessage, setErrorMessage] = useState< string | null>(null);
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
 
@@ -125,17 +124,16 @@ export const SignUpForm = ({ closeModal }: SignUpProps) => {
           icon: checkIcon,
         });
         form.reset();
-        closeModal();
-      } catch (error) {
-        console.log(error);
-        notifications.show({
-          title: 'Error!',
-          message: 'We Encountered Some Error! Please Try Again',
-          color: 'red',
-          icon: xIcon,
-        });
+
+      } catch (error: any) {
+        setErrorMessage(error.message)
       }
     })}>
+      {errorMessage && (
+        <Text c="red" size="sm" mb="md">
+          {errorMessage}
+        </Text>
+      )}
       <Group grow>
         <TextInput
           label="First Name"

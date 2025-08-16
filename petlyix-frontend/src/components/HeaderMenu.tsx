@@ -6,10 +6,6 @@ import classes from '../styles/HeaderMenu.module.css';
 import { Link } from 'react-router-dom';
 import SideNavContext from '../context/SideNavBarContext';
 import { useContext } from 'react';
-import { AuthModal } from './Modals/AuthModal';
-import { useEffect, useState } from 'react';
-import { authApi } from '../api/auth';
-import { api } from '../api/client';
 import { useAuth } from '../hooks/useAuth';
 
 const links = [
@@ -101,8 +97,8 @@ export const HeaderMenu: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <AuthModal type="login"/>
-                  <AuthModal type="signup"/>
+                  <Link to= 'login'> <Button variant = "default"> Login </Button> </Link>
+                  <Link to= 'signup'> <Button variant = "filled"> Sign Up </Button> </Link>
                 </>
               )}
             </Group>

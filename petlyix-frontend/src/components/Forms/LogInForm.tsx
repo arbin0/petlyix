@@ -9,13 +9,12 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { authApi } from '../../api/auth';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
-interface LoginFormProps {
-  closeModal: () => void;
-}
 
-export const LoginForm = ({ closeModal }: LoginFormProps) => {
+
+export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const checkIcon = <IconCheck size={20} />;
 
@@ -67,21 +66,13 @@ export const LoginForm = ({ closeModal }: LoginFormProps) => {
         
         form.reset();
        
-        closeModal();
         
         
         // Trigger page refresh or state update for header
         // window.location.reload();
-      } catch (error: any) {
-        console.log("Login error:", error);
-        
-        // Handle error message
-        if (error?.message) {
+      } catch(error: any) {
           setErrorMessage(error.message);
-        } else {
-          setErrorMessage('We encountered an error. Please try again.');
         }
-      }
     })}>
       {errorMessage && (
         <Text c="red" size="sm" mb="md">
@@ -105,6 +96,7 @@ export const LoginForm = ({ closeModal }: LoginFormProps) => {
       <Button type="submit" mt="md" disabled={!form.isValid() || form.submitting}>
         Submit
       </Button>
+      Dont have an account? <Link to= 'register'> Create an account</Link>
     </form>
   );
 };

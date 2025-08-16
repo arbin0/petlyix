@@ -1,9 +1,34 @@
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+
+/**
+ * Recursively extracts the first error message from a DRF-style response
+ */
+function extractFirstError(errorObj: any): string | null {
+  if (!errorObj) return null;
+
+  if (typeof errorObj === 'string') return errorObj;
+
+  if (Array.isArray(errorObj) && errorObj.length) {
+    return extractFirstError(errorObj[0]);
+  }
+
+  if (typeof errorObj === 'object') {
+    for (const key of Object.keys(errorObj)) {
+      const message = extractFirstError(errorObj[key]);
+      if (message) return message;
+    }
+  }
+
+  return null;
+}
+
+
 /**
  * Refreshes the access token using the refresh token
  * Called automatically when we get 401 errors
  */
+
 const refreshAccessToken = async (): Promise<string> => {
   const refreshToken = localStorage.getItem("refreshToken");
   
@@ -88,8 +113,9 @@ const apiClient = async <T = any>(
 
   // Handle errors
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.detail || errorData.message || `HTTP ${response.status}`);
+  const errorData = await response.json().catch(() => ({}));
+    const message = extractFirstError(errorData) || `HTTP ${response.status}`;
+    throw new Error(message);
   }
 
   // Handle 204 No Content (common for DELETE)
@@ -101,7 +127,7 @@ const apiClient = async <T = any>(
 };
 
 /**
- * Convenience API methods - clean interface for your components
+ * Convenience API methods - clean interface for the components
  */
 export const api = {
   get: <T = any>(endpoint: string): Promise<T> => 
