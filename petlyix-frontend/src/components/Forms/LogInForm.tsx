@@ -4,7 +4,7 @@ import {
   Button,
   Text
 } from '@mantine/core';
-import { useForm, isEmail } from '@mantine/form';
+import { useForm, isEmail, } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { authApi } from '../../api/auth';
@@ -34,6 +34,7 @@ export const LoginForm = () => {
   });
 
   return (
+    <div>
     <form onSubmit={form.onSubmit(async (values) => {
       setErrorMessage(null); // Clear previous errors
       try {
@@ -96,7 +97,12 @@ export const LoginForm = () => {
       <Button type="submit" mt="md" disabled={!form.isValid() || form.submitting}>
         Submit
       </Button>
-      Dont have an account? <Link to= 'register'> Create an account</Link>
+      
     </form>
+         Don't have an account? <Link to='/signup'>Create an account</Link>
+
+      </div>
+
+
   );
 };

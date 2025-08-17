@@ -171,13 +171,17 @@ export const SignUpForm = () => {
         {...form.getInputProps('password1')}
       />
 
+      {form.isTouched('password1') ? (
+        <>
       <Group gap={5} grow mt="xs" mb="md">
         {bars}
+        
       </Group>
 
-      <PasswordRequirement label="Has at least 8 characters" meets={password1.length > 5} />
+      <PasswordRequirement label="Has at least 8 characters" meets={password1.length > 7} />
       {checks}
-      
+      </>
+        ): null}
       <PasswordInput
         mt="sm"
         label="Confirm Password"
