@@ -11,7 +11,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PetFeeding from './pages/PetFeeding';
 import PetHealth from './pages/PetHealth';
 import PetOverview from './pages/PetOverview';
-
+import ProtectedRoute from './components/services/protectedRoute';
+import { AuthContextProvider } from './context/AuthContextProvider';
 
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const queryClient = new QueryClient();
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
       <Router>
         <Routes>
           {/* Outer layout wrapping all */}
@@ -32,15 +34,22 @@ const App: React.FC = () => {
             
 
           </Route>
-          <Route element={<DashboardLayout />}>
+          
+          <Route element={
+            <ProtectedRoute>
+            <DashboardLayout />
+            </ProtectedRoute>
+            }>
               <Route path="pets" element={<Pets />} />
               <Route path="pets/:petId" element={<PetOverview />}/>
                 <Route path="pets/:petId/feeding" element={<PetFeeding />} />
                 <Route path="pets/:petId/health" element={<PetHealth />} />
              
             </Route>
+          
         </Routes>
       </Router>
+      </AuthContextProvider>
     </QueryClientProvider>
   );
 };

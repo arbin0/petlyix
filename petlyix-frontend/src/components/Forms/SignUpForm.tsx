@@ -13,6 +13,7 @@ import { useForm, isEmail } from '@mantine/form';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { api } from '../../api/client';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
@@ -47,9 +48,8 @@ function getStrength(password1: string) {
 
 export const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState< string | null>(null);
-  const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
-
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       firstname: '',
@@ -116,13 +116,13 @@ export const SignUpForm = () => {
     <form onSubmit={form.onSubmit(async (values) => {
       try {
         await api.post('/users/register/', values);
-        console.log("User Created!");
         notifications.show({
-          title: 'Successful!',
+          title: 'Please Log In!',
           message: 'You have been successfully registered!',
           color: 'teal',
           icon: checkIcon,
         });
+        navigate("/login");
         form.reset();
 
       } catch (error: any) {

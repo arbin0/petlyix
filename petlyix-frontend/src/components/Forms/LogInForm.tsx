@@ -9,12 +9,14 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck } from '@tabler/icons-react';
 import { authApi } from '../../api/auth';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContextProvider';
 
 
 
 export const LoginForm = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const checkIcon = <IconCheck size={20} />;
 
@@ -43,6 +45,12 @@ export const LoginForm = () => {
           password: values.password
         });
 
+        if (response.tokens?.access && response.tokens?.refresh) {
+        login(response.tokens.access, response.tokens.refresh);
+        } else {
+          throw new Error("Login failed: tokens missing");
+        }
+
         console.log("Login Successful!");
         notifications.show({
           title: 'Successful!',
@@ -53,19 +61,9 @@ export const LoginForm = () => {
 
         // Store tokens
        // Store tokens safely
-         if (response.tokens?.access) {
-            localStorage.setItem("accessToken", response.tokens.access);
-          } else {
-            localStorage.removeItem("accessToken");
-          }
-
-          if (response.tokens?.refresh) {
-            localStorage.setItem("refreshToken", response.tokens.refresh);
-          } else {
-            localStorage.removeItem("refreshToken");
-          }
-        
         form.reset();
+        navigate('/pets');
+        
        
         
         

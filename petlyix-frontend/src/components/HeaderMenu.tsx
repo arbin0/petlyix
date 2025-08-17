@@ -6,7 +6,7 @@ import classes from '../styles/HeaderMenu.module.css';
 import { Link } from 'react-router-dom';
 import SideNavContext from '../context/SideNavBarContext';
 import { useContext } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../context/AuthContextProvider';
 
 const links = [
   { link: 'about', label: 'Features' },
