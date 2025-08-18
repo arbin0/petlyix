@@ -6,7 +6,7 @@ class PetSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Pet
-        fields = ['name', 'id', 'type', 'breed', 'photo', 'dob']
+        fields = ['name', 'id', 'type', 'breed', 'photo', 'dob', 'ownerId']
 
 class FoodLogSerializer(serializers.ModelSerializer):
     

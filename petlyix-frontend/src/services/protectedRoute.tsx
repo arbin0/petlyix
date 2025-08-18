@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContextProvider";
-
+import { useAuth } from "../context/AuthContextProvider";
+import { Loader } from '@mantine/core';
 
 
 interface ProtectedRouteProps {
@@ -9,8 +9,12 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => { 
 
-const { isAuthenticated } = useAuth();
+const { isAuthenticated, loading } = useAuth();
 
+if (loading)
+{
+    return <Loader color="blue" type="dots" />;
+}
 
 if (!isAuthenticated){
 

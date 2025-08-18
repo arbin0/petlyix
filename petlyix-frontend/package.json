@@ -30,6 +30,7 @@
     "@tiptap/pm": "^2.22.0",
     "@tiptap/react": "^2.22.0",
     "@tiptap/starter-kit": "^2.22.0",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",

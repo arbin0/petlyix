@@ -6,7 +6,7 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 import { useQueryClient } from '@tanstack/react-query';
 import { petsApi } from '../../api/pets'; // Import new API
-import { type Pet } from '../../types/api';     // Import centralized types
+import { useAuth } from '../../context/AuthContextProvider';
 
 interface AddPetFormProps {
   closeModal: () => void;
@@ -18,6 +18,8 @@ export const AddPetForm = ({ closeModal }: AddPetFormProps) => {
   const xIcon = <IconX size={20} />;
   const checkIcon = <IconCheck size={20} />;
   const today = new Date();
+  const { userId }  = useAuth();
+  
   today.setHours(0, 0, 0, 0);
 
   const form = useForm({
@@ -51,6 +53,8 @@ export const AddPetForm = ({ closeModal }: AddPetFormProps) => {
         formData.append('type', values.type.toLowerCase());
         formData.append('breed', values.breed);
         formData.append('dob', values.dob);
+        formData.append('ownerId', userId!); //Here "!" is used in userId because it will never be null and ! is just not null assertion for the type
+        
         
         if (values.picture) {
           formData.append('photo', values.picture);

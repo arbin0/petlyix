@@ -50,9 +50,10 @@ const refreshAccessToken = async (): Promise<string> => {
 
   const data = await response.json();
   localStorage.setItem('accessToken', data.access);
-  
+  console.log("Gpt New Access Token")
   if (data.refresh) {
     localStorage.setItem('refreshToken', data.refresh);
+    console.log("Gpt New Refresh Token")
   }
   
   return data.access;

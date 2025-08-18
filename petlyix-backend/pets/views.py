@@ -27,6 +27,7 @@ class FoodLogViewSet(viewsets.ModelViewSet):
         pet_id = self.request.query_params.get('petId')
         if not pet_id:
             raise ValidationError("petId query parameter is required.")
+        #Here checking if the pet_id of the food logs belongs to the authenticated user
         if not Pet.objects.filter(id=pet_id, ownerId=self.request.user.id).exists():
             raise ValidationError("You do not have permission to access this pet's food logs.")
         return self.queryset.filter(petId=pet_id)

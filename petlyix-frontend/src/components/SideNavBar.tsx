@@ -11,15 +11,22 @@ import {
 import { Code, Group } from '@mantine/core';
 import { Logo } from './Logo';
 import classes from '../styles/SideNavBar.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContextProvider';
 
 
 
 
 export function SideNavBar() {
-    
+const navigate = useNavigate();
+const { logout } = useAuth();
+
 const { petId } = useParams();
+const logoutHandler = () =>{
+  navigate("/");
+  logout();
+}
 const generalLinks = [
   { link: '/pets', label: 'My Pets', icon: IconBellRinging },
   { link: '/settings', label: 'Settings', icon: IconSettings },
@@ -29,7 +36,7 @@ const petSpecificLinks = [
   { link: `/pets/${petId}`, label: 'Overview', icon: IconDeviceDesktopAnalytics },
   { link: `/pets/${petId}/feeding`, label: 'Feeding', icon: IconBowl },
   { link: `/pets/${petId}/health`, label: 'Health', icon: IconFirstAidKit },
-  { link: `/pets/${petId}/settings`, label: 'Pet Settings', icon: IconSettings },
+  { link: `/pets/${petId}/manage`, label: 'Manage Pet', icon: IconSettings },
 ];
 
 const linksToRender = petId ? petSpecificLinks : generalLinks;
@@ -62,7 +69,7 @@ const linksToRender = petId ? petSpecificLinks : generalLinks;
           <span>Change account</span>
         </a>
 
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <a href="#" className={classes.link} onClick={logoutHandler}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
         </a>

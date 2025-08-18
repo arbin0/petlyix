@@ -20,8 +20,8 @@ export const petsApi = {
   
   // Food log operations
   getFoodLogs: (petId: string): Promise<FoodLog[]> => 
-    api.get<FoodLog[]>(`/pets/${petId}/food-logs/`),
+    api.get<FoodLog[]>(`/foodlogs/?petId=${petId}`,),
   
-  createFoodLog: (petId: string, logData: Partial<FoodLog>): Promise<FoodLog> => 
-    api.post<FoodLog, Partial<FoodLog>>(`/pets/${petId}/food-logs/`, logData),
+  createFoodLog: (logData: Partial<FoodLog> | FormData): Promise<FoodLog> => 
+    api.post<FoodLog, Partial<FoodLog>| FormData>(`/foodlogs/`, logData),
 };

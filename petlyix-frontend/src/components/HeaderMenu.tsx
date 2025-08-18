@@ -36,15 +36,17 @@ const links = [
 export const HeaderMenu: React.FC = () => {
   // Authentication Logic start
   const {isAuthenticated, logout, username} = useAuth()
- 
+  const filteredLinks = links.filter(link => {
+  // Remove '/pets' if not authenticated
+        if (!isAuthenticated && link.link === '/pets') return false;
+        return true;
+      });
   
-
-
   // Authentication Logic End
   const isSideNav = useContext(SideNavContext);
   const [opened, { toggle }] = useDisclosure(false);
 
-  const items = links.map((link) => {
+  const items = filteredLinks.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
     ));

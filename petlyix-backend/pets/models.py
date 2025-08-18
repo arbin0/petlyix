@@ -34,8 +34,12 @@ class Food_Log(models.Model):
     name = models.CharField(max_length = 255)
     calories = models.IntegerField()
     logged_time = models.DateTimeField(default=now, blank=True, null= False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ['-logged_time']
 
 class Vet_Details(models.Model):
     id = models.UUIDField(primary_key= True, default = uuid.uuid4, null = False, editable=False)
@@ -50,5 +54,9 @@ class Vet_Details(models.Model):
     state = models.CharField(max_length=100, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
     country = models.CharField(max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ['created_at']
