@@ -1,21 +1,10 @@
-import { PetFoodLogTable } from '../components/PetFoodLogTable';
-import { LogFoodModal } from '../components/Modals/LogFoodModal';
+import { PetFeedingComponents } from "../components/PetFeedingComponents";
 
 
 const PetFeeding = () =>{
     return (
     <div>
-        <div>
-            
-            
-        </div>
-      
-        <div>
-            <LogFoodModal />
-            <PetFoodLogTable />
-            
-        </div>
-
+       <PetFeedingComponents />
     </div>
     )
 };

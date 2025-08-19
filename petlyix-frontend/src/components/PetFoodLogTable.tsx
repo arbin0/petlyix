@@ -2,19 +2,15 @@ import { useState } from 'react';
 import cx from 'clsx';
 import { ScrollArea, Table } from '@mantine/core';
 import classes from '../styles/TableScrollArea.module.css';
-import { petsApi } from "../api/pets";
 import { type FoodLog } from "../types/api";
-import { useParams } from "react-router-dom";
-import { useQuery } from '@tanstack/react-query';
 
 
-export function PetFoodLogTable() {
-    const { petId } = useParams();
-    const { data: foods = [] } = useQuery<FoodLog[]>({
-       queryKey: ['foods', petId],
-       queryFn: () => petsApi.getFoodLogs(petId!),
-       enabled: !!petId,
-    });
+interface PetFoodLogProps {
+    foods: FoodLog[];
+}
+
+export function PetFoodLogTable({foods} : PetFoodLogProps) {
+   
     const [scrolled, setScrolled] = useState(false);
 
     const rows = foods.map((row) => (

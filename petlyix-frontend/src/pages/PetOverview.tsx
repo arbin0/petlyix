@@ -6,7 +6,7 @@ const PetOverview = () => {
         <div>
         
         <h2>Overview</h2>
-        <PetOverviewData />
+        <PetOverviewData/>
         </div>
     )
 

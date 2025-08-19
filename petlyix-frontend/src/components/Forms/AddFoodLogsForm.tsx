@@ -1,4 +1,4 @@
-import { Button, Group, TextInput, NumberInput } from '@mantine/core';
+import { Button, Group, TextInput, NumberInput, Flex } from '@mantine/core';
 import { DateTimePicker } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { IconCheck, IconX } from '@tabler/icons-react';
@@ -6,12 +6,18 @@ import { notifications } from '@mantine/notifications';
 import { useQueryClient } from '@tanstack/react-query';
 import { petsApi } from '../../api/pets'; // Import new API
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { format } from 'date-fns';
 
 interface AddFoodLogFormProps {
   closeModal: () => void;
 }
 
 export const AddFoodLogForm = ({ closeModal }: AddFoodLogFormProps) => {
+  const now = new Date();
+  const formatted = format(now, 'yyyy  MMM d,  h:mm a');
+  const [isTimeNow, setIsTimeNow] = useState(false);
+  const [logTime, setLogTime] = useState<string | null>(null);
   const { petId } = useParams();
   const queryClient = useQueryClient();
   const xIcon = <IconX size={20} />;
@@ -39,7 +45,7 @@ export const AddFoodLogForm = ({ closeModal }: AddFoodLogFormProps) => {
         const formData = new FormData();
         formData.append('name', values.name);
         formData.append('calories', values.calories !== '' ? String(values.calories) : '');
-        formData.append(  'logged_time', values.logged_time);
+        formData.append('logged_time', values.logged_time);
         formData.append('petId', petId!);
         
         
@@ -86,8 +92,9 @@ export const AddFoodLogForm = ({ closeModal }: AddFoodLogFormProps) => {
         key={form.key('calories')}
         {...form.getInputProps('calories')}
       />
-      
-     <DateTimePicker
+      {isTimeNow? (
+        <>
+         <DateTimePicker
         label="Meal Time"
         placeholder="Select Now or Meal Time"
         timePickerProps={{
@@ -99,8 +106,32 @@ export const AddFoodLogForm = ({ closeModal }: AddFoodLogFormProps) => {
         clearable
         {...form.getInputProps('logged_time')}
         />
+        <Button onClick={() => setIsTimeNow(false)}>
+          Log Time as Now
+        </Button>
+        </>
+      ):
+      (
+        <div>
+        <p>Meal Time</p>
+        {logTime}
+        <Group >
+        <Button onClick={() => {
+         // current date-time in ISO format
+        setLogTime(formatted);
+        }}>
+          Now
+        </Button>
+        
+        <Button onClick={() => setIsTimeNow(true)}>
+          Other Time
+        </Button>
+        </Group>
+        </div>
+      )}
+    
 
-
+      
       <Group justify="flex-end" mt="md">
         <Button type="submit">Log</Button>
       </Group>

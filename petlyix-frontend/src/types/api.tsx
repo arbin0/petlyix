@@ -10,10 +10,11 @@ export interface Pet {
 export interface FoodLog {
   id: string;
   name: string;
-  calories: string;
+  calories: number;
   logged_time: string;
   petId: string;
 }
+
 
 export interface LoginCredentials {
   email: string;
