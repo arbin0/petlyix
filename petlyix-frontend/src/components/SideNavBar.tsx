@@ -13,7 +13,7 @@ import { Logo } from './Logo';
 import classes from '../styles/SideNavBar.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../context/AuthContextProvider';
+import { useAuth } from '../hooks/useState';
 
 
 

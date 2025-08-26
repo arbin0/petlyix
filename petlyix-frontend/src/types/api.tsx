@@ -15,6 +15,18 @@ export interface FoodLog {
   petId: string;
 }
 
+export interface Vet {
+  id: string, 
+  name: string,
+  phone: string,
+  email: string,
+  main_doctor: string,
+  address_line1: string,
+  city : string,
+  state: string,
+  postal_code: string,
+  country: string,
+}
 
 export interface LoginCredentials {
   email: string;

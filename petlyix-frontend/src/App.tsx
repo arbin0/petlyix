@@ -13,7 +13,7 @@ import PetHealth from './pages/PetHealth';
 import PetOverview from './pages/PetOverview';
 import PetManage from './pages/PetManage';
 import ProtectedRoute from './services/protectedRoute';
-import { AuthContextProvider } from './context/AuthContextProvider';
+import  AuthContextProvider  from './context/AuthContextProvider';
 
 
 const queryClient = new QueryClient();

@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContextProvider";
+import { useAuth } from "../hooks/useState";
 import { Loader } from '@mantine/core';
 
 

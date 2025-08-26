@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { api } from "../api/client"; // your axios/fetch client
 import { authApi } from "../api/auth"; // logout API
 
@@ -11,9 +11,9 @@ interface AuthContextType {
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -81,8 +81,4 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   );
 };
 
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthContextProvider");
-  return ctx;
-};
+export default AuthContextProvider;

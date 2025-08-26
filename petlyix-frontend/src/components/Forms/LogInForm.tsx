@@ -10,7 +10,7 @@ import { IconCheck } from '@tabler/icons-react';
 import { authApi } from '../../api/auth';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContextProvider';
+import { useAuth } from '../../hooks/useState';
 
 
 

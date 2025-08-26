@@ -12,8 +12,8 @@ const COLORS = ["indigo", "green", "orange", "red", "blue", "pink"];
 function detectRange(dates: string[]): "day" | "week" | "month" | "year" {
   if (dates.length === 0) return "day"; // default fallback
   
-  const startDate = new Date(dates[0]);
-  const endDate = new Date(dates[dates.length - 1]);
+  const endDate = new Date(dates[0]);
+  const startDate = new Date(dates[dates.length - 1]);
 
   const diffInMs = endDate.getTime() - startDate.getTime();
   const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
@@ -56,7 +56,7 @@ export const CalorieChart = ({foods}: CalorieChartProps) => {
         formattedDate = format(date, "EEE h:mm a");
         break;
       case "week":
-        formattedDate = format(date, "EEE h a");
+        formattedDate = format(date, "EEE MMM d h a");
         break;
       case "month":
         formattedDate = format(date, "MMM d");
