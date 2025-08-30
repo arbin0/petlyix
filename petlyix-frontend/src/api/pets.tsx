@@ -1,5 +1,5 @@
 import { api } from './client';
-import  { type Pet, type FoodLog } from '../types/api';
+import  { type Pet, type FoodLog, type Vet } from '../types/api';
 
 export const petsApi = {
   // Pet CRUD operations
@@ -24,4 +24,10 @@ export const petsApi = {
   
   createFoodLog: (logData: Partial<FoodLog> | FormData): Promise<FoodLog> => 
     api.post<FoodLog, Partial<FoodLog>| FormData>(`/foodlogs/`, logData),
+
+  createVets: (vetData: Partial<Vet> | FormData): Promise<Vet> => 
+    api.post<Vet, Partial<Vet>| FormData>(`/vets/`, vetData),
+
+  getVets: (petId: string): Promise<Vet[]> =>
+    api.get<Vet[]>(`/vets?petId=${petId}`,),
 };

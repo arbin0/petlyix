@@ -1,5 +1,5 @@
-import { AddVetModal } from "../components/Modals/AddVetModal";
 
+import { PetHealthComponents } from "../components/PetHealthComponents";
 
 
 const PetHealth = () => {
@@ -8,7 +8,7 @@ const PetHealth = () => {
         <div>
         
         <h2>Health</h2>
-        <AddVetModal />
+        <PetHealthComponents />
         
         </div>
     )

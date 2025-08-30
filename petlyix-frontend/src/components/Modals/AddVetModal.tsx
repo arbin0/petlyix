@@ -7,7 +7,7 @@ export const AddVetModal = () => {
 
   return (
     <>
-      <Modal
+      <Modal size="auto"
         opened={opened}
         onClose={close}
         title="Add New Vet"
@@ -18,7 +18,7 @@ export const AddVetModal = () => {
       </Modal>
 
       <Button variant="default" onClick={open}>
-        Add New Pet
+        Add New Vet
       </Button>
     </>
   );

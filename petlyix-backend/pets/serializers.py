@@ -15,6 +15,12 @@ class FoodLogSerializer(serializers.ModelSerializer):
         fields = '__all__'
 class VetSerializer(serializers.ModelSerializer):
     
+    pets = serializers.PrimaryKeyRelatedField(
+        many=True,  # because a vet can have multiple pets
+        queryset=Pet.objects.all(),
+        required=False  # optional
+    )
+
     class Meta:
         model = Vet_Details
         fields = '__all__'

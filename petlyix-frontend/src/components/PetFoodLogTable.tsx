@@ -21,8 +21,8 @@ export function PetFoodLogTable({foods} : PetFoodLogProps) {
         </Table.Tr>
     ));
 
-    return (
-        <ScrollArea h={300} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+    return (    
+        <ScrollArea h={200} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
             <Table miw={700}>
                 <Table.Thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
                     <Table.Tr>

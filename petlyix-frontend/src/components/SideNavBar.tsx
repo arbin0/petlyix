@@ -1,6 +1,6 @@
 import {
  
-  IconBellRinging,
+  IconPaw,
   IconFirstAidKit,
   IconLogout,
   IconDeviceDesktopAnalytics,
@@ -28,7 +28,7 @@ const logoutHandler = () =>{
   logout();
 }
 const generalLinks = [
-  { link: '/pets', label: 'My Pets', icon: IconBellRinging },
+  { link: '/pets', label: 'My Pets', icon: IconPaw },
   { link: '/settings', label: 'Settings', icon: IconSettings },
 ];
 

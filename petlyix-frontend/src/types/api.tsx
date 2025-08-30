@@ -16,16 +16,18 @@ export interface FoodLog {
 }
 
 export interface Vet {
-  id: string, 
-  name: string,
-  phone: string,
-  email: string,
-  main_doctor: string,
-  address_line1: string,
-  city : string,
-  state: string,
-  postal_code: string,
-  country: string,
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  main_doctor: string;
+  address_line1: string;
+  address_line2?: string;
+  city : string;
+  state: string;
+  postal_code: string;
+  country: string;
+  pets?: string[];
 }
 
 export interface LoginCredentials {
