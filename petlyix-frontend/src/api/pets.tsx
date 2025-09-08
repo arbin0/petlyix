@@ -1,5 +1,5 @@
 import { api } from './client';
-import  { type Pet, type FoodLog, type Vet } from '../types/api';
+import  { type Pet, type FoodLog, type Vet, type VetVisit, type PetHealth, type Appointment } from '../types/api';
 
 export const petsApi = {
   // Pet CRUD operations
@@ -30,4 +30,30 @@ export const petsApi = {
 
   getVets: (petId: string): Promise<Vet[]> =>
     api.get<Vet[]>(`/vets?petId=${petId}`,),
+
+    // VetVisit operations
+  getVetVisits: (petId: string): Promise<VetVisit[]> =>
+    api.get<VetVisit[]>(`/vetvisits/?petId=${petId}`),
+
+  createVetVisit: (visitData: Partial<VetVisit> | FormData): Promise<VetVisit> =>
+    api.post<VetVisit, Partial<VetVisit> | FormData>(`/vetvisits/`, visitData),
+
+  // PetHealth operations
+  getPetHealth: (petId: string): Promise<PetHealth[]> =>
+    api.get<PetHealth[]>(`/pethealth/?petId=${petId}`),
+
+  createPetHealth: (healthData: Partial<PetHealth> | FormData): Promise<PetHealth> =>
+    api.post<PetHealth, Partial<PetHealth> | FormData>(`/pethealth/`, healthData),
+
+  // Appointment operations
+  getAppointments: (petId: string): Promise<Appointment[]> =>
+    api.get<Appointment[]>(`/appointments/?petId=${petId}`),
+
+  createAppointment: (apptData: Partial<Appointment> | FormData): Promise<Appointment> =>
+    api.post<Appointment, Partial<Appointment> | FormData>(`/appointments/`, apptData),
+
+  updateAppointment: (id: string, petId: string, apptData: Partial<Appointment> | FormData): Promise<Appointment> =>
+  api.patch<Appointment, Partial<Appointment> | FormData>(`/appointments/${id}/?petId=${petId}`, apptData),
+
+
 };

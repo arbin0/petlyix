@@ -17,7 +17,11 @@ export const PetVetDetails  = ({vets}: PetVetDetailsProps) =>{
         <Grid>
         {vets.map((vet) => (
           <Grid.Col span={4} key={vet.id}>
-           <h4>{vet.name}</h4>
+           <h4>Vet Name: {vet.name}</h4>
+           <p>Main Doctor: Dr. {vet.main_doctor}</p>
+           <p>Phone:{vet.phone}</p>
+           <p>Email:{vet.email}</p>
+           Location: {vet.address_line1} {vet.address_line2} {vet.city} {vet.state} {vet.postal_code}
           </Grid.Col>
         ))}
       </Grid>

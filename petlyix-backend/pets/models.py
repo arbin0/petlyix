@@ -60,3 +60,55 @@ class Vet_Details(models.Model):
         return self.name
     class Meta:
         ordering = ['created_at']
+
+class VetVisit(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name="vet_visits")
+    vet = models.ForeignKey(Vet_Details, on_delete=models.CASCADE, related_name="vet_visits")
+    visit_date = models.DateTimeField()
+    reason = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Visit for {self.pet.name} with {self.vet.name} on {self.visit_date.strftime('%Y-%m-%d %H:%M')}"
+    class Meta:
+        ordering = ['-visit_date']
+
+class Appointment(models.Model):
+    STATUS_CHOICES = [
+        ("scheduled", "Scheduled"),
+        ("cancelled", "Cancelled"),
+        ("completed", "Completed"),
+        ("no_show", "No Show"),
+    ]
+
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name="appointments")
+    vet = models.ForeignKey(Vet_Details, on_delete=models.CASCADE, related_name="appointments")
+    appointment_date = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="scheduled")
+    reminder_sent = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering = ['-appointment_date']
+
+    def __str__(self):
+        return f"Appointment for {self.pet.name} with {self.vet.name} on {self.appointment_date.strftime('%Y-%m-%d %H:%M')}"
+
+class PetHealth(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, related_name="health_records")
+    weight = models.FloatField()
+    height = models.FloatField(blank=True, null=True)
+    medical_conditions = models.TextField(blank=True)
+    vaccinations = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
+    record_date = models.DateTimeField(default=now)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-record_date']
+
+    def __str__(self):
+        return f"Health record for {self.pet.name} on {self.record_date.strftime('%Y-%m-%d')}"
+    

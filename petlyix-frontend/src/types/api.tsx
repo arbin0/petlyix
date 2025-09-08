@@ -41,3 +41,39 @@ export interface TokenResponse {
     refresh: string;
   };
 }
+
+
+
+export interface VetVisit {
+  id: string;
+  pet: string; // Pet ID
+  vet: string; // Vet ID
+  visit_date: string; // ISO date string
+  reason?: string;
+  notes?: string;
+  created_at: string;
+}
+
+// Appointment
+export interface Appointment {
+  id: string;
+  pet: string; // Pet ID
+  vet: string; // Vet ID
+  appointment_date: string; // ISO date string
+  status: "scheduled" | "cancelled" | "completed" | "no_show";
+  reminder_sent: boolean;
+  created_at: string;
+}
+
+// PetHealth
+export interface PetHealth {
+  id: string;
+  pet: string; // Pet ID
+  weight: number;
+  height?: number;
+  medical_conditions?: string;
+  vaccinations?: string;
+  notes?: string;
+  record_date: string; // ISO date string
+  created_at: string;
+}
