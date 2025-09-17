@@ -1,8 +1,6 @@
 # 🐾 Petlyix
 
-**Petlyix** 
-
-**Petlyix** # 🐾 Petlyix is a full-stack web application designed to help pet owners manage their pets comprehensively — including tracking food intake, Vet Appointment scheduling, vet visits, logs, notes, and more. The app aims to simplify pet care by centralizing important health and nutrition information in one place.
+🐾 Petlyix is a full-stack web application designed to help pet owners manage their pets comprehensively — including tracking food intake, Vet Appointment scheduling, vet visits, logs, notes, and more. The app aims to simplify pet care by centralizing important health and nutrition information in one place.
 
 
 ## Screenshots
@@ -65,7 +63,7 @@
 
 ## 🧱 Tech Stack & Tools
 
-### ✅ Backend (Django + DRF)
+### ✅ API Backend (Django + DRF)
 - RESTful API using Django REST Framework
 - PostgreSQL database integration
 - Modular Django project with multiple apps (`pets`, `users`)
@@ -79,19 +77,4 @@
 - TanStack React query for smart caching and data refetching  
 
 ---
-
-## 📁 Project Structure
-
-petlyix/
-├── backend/
-│ ├── manage.py
-│ ├── petly/ # Django project configuration
-│ ├── pets/ # App for pet profiles & calorie tracking
-│ └── users/ # App for user auth & management
-├── frontend/
-│ ├── public/
-│ └── src/
-│ ├── components/ # UI components
-│ ├── pages/ # Route-based pages
-│ └── services/ # API & helper functions
 
