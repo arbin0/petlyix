@@ -1,6 +1,8 @@
 # 🐾 Petlyix
 
-🐾 Petlyix is a full-stack web application designed to help pet owners manage their pets comprehensively — including tracking food intake, Vet Appointment scheduling, vet visits, logs, notes, and more. The app aims to simplify pet care by centralizing important health and nutrition information in one place.
+Petlyix is a full-stack web application that helps pet owners manage their pets comprehensively, including tracking food intake, scheduling vet appointments, recording vet visits, maintaining logs and notes, and more. The app centralizes important health and nutrition information in one place, simplifying pet care. 
+
+The backend and frontend are decoupled: the backend is built with Python and Django REST Framework (DRF) for creating API endpoints, while the frontend uses React with TypeScript.
 
 
 ## Screenshots
