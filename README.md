@@ -84,4 +84,81 @@ The backend and frontend are decoupled: the backend is built with Python and Dja
   
 
 ---
+## API Documentation
+
+## Authentication Endpoints
+
+| Endpoint          | Method | Description                                            | Permissions   |
+| ----------------- | ------ | ------------------------------------------------------ | ------------- |
+| `/register/`      | POST   | Register a new user and return access & refresh tokens | Public        |
+| `/login/`         | POST   | Log in a user and return access & refresh tokens       | Public        |
+| `/logout/`        | POST   | Log out a user by blacklisting their refresh token     | Authenticated |
+| `/user/`          | GET    | Retrieve info about the currently logged-in user       | Authenticated |
+| `/token/refresh/` | POST   | Refresh access token using refresh token               | Authenticated |
+
+## Pet Management Endpoints
+
+| Endpoint      | Method    | Description                         | Permissions   | Query Params |
+| ------------- | --------- | ----------------------------------- | ------------- | ------------ |
+| `/pets/`      | GET       | List all pets of the logged-in user | Authenticated | -            |
+| `/pets/`      | POST      | Create a new pet                    | Authenticated | -            |
+| `/pets/{id}/` | GET       | Retrieve a specific pet             | Authenticated | -            |
+| `/pets/{id}/` | PUT/PATCH | Update a pet                        | Authenticated | -            |
+| `/pets/{id}/` | DELETE    | Delete a pet                        | Authenticated | -            |
+
+
+## Food Logs Endpoint
+
+| Endpoint      | Method    | Description                         | Permissions   | Query Params |
+| ------------- | --------- | ----------------------------------- | ------------- | ------------ |
+| `/pets/`      | GET       | List all pets of the logged-in user | Authenticated | -            |
+| `/pets/`      | POST      | Create a new pet                    | Authenticated | -            |
+| `/pets/{id}/` | GET       | Retrieve a specific pet             | Authenticated | -            |
+| `/pets/{id}/` | PUT/PATCH | Update a pet                        | Authenticated | -            |
+| `/pets/{id}/` | DELETE    | Delete a pet                        | Authenticated | -            |
+
+## Vet and Vet Visits endpoint
+
+| Endpoint           | Method    | Description                                       | Permissions   | Query Params       |
+| ------------------ | --------- | ------------------------------------------------- | ------------- | ------------------ |
+| `/vets/`           | GET       | List all vets or filter by pet                    | Authenticated | `petId` (optional) |
+| `/vets/`           | POST      | Add a vet (validate assigned pets belong to user) | Authenticated | -                  |
+| `/vetvisits/`      | GET       | List all vet visits for a pet                     | Authenticated | `petId` (required) |
+| `/vetvisits/`      | POST      | Add a new vet visit for a pet                     | Authenticated | -                  |
+| `/vetvisits/{id}/` | PUT/PATCH | Update a vet visit                                | Authenticated | -                  |
+| `/vetvisits/{id}/` | DELETE    | Delete a vet visit                                | Authenticated | -                  |
+
+## Appointment Endpoints
+
+| Endpoint           | Method    | Description                                       | Permissions   | Query Params       |
+| ------------------ | --------- | ------------------------------------------------- | ------------- | ------------------ |
+| `/vets/`           | GET       | List all vets or filter by pet                    | Authenticated | `petId` (optional) |
+| `/vets/`           | POST      | Add a vet (validate assigned pets belong to user) | Authenticated | -                  |
+| `/vetvisits/`      | GET       | List all vet visits for a pet                     | Authenticated | `petId` (required) |
+| `/vetvisits/`      | POST      | Add a new vet visit for a pet                     | Authenticated | -                  |
+| `/vetvisits/{id}/` | PUT/PATCH | Update a vet visit                                | Authenticated | -                  |
+| `/vetvisits/{id}/` | DELETE    | Delete a vet visit                                | Authenticated | -                  |
+
+## Pet Health Endpoint
+
+| Endpoint           | Method    | Description                       | Permissions   | Query Params       |
+| ------------------ | --------- | --------------------------------- | ------------- | ------------------ |
+| `/pethealth/`      | GET       | List all health records for a pet | Authenticated | `petId` (required) |
+| `/pethealth/`      | POST      | Add a new health record           | Authenticated | -                  |
+| `/pethealth/{id}/` | PUT/PATCH | Update a health record            | Authenticated | -                  |
+| `/pethealth/{id}/` | DELETE    | Delete a health record            | Authenticated | -                  |
+
+
+## Notes / Features
+
+- All endpoints (except registration and login) require authentication (JWT).
+- Access is limited to the logged-in user’s pets only.
+- Query parameters like petId are required for nested resources (food logs, vet visits, appointments, health).
+- Responses include meaningful error messages extracted from DRF-style validation errors.
+
+Author: arbin0
+Email: arbinkhadka10@gmail.com
+
+
+
 
