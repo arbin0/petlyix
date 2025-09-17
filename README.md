@@ -64,17 +64,22 @@
 ## 🧱 Tech Stack & Tools
 
 ### ✅ API Backend (Django + DRF)
+
 - RESTful API using Django REST Framework
 - PostgreSQL database integration
 - Modular Django project with multiple apps (`pets`, `users`)
 - JWT authentication using `djangorestframework-simplejwt`
 
 ### ⚙️ Frontend (React with Typescript)
-- Mantine UI for UI components
+
 - Page routing using React Router
-- Custom built API client for managing all API calls
-- Custom Build Global Authentication State managemtn
-- TanStack React query for smart caching and data refetching  
+- Build Custom reusable API client with automatic JWT refresh, DRF-style error handling, JSON/FormData support, and convenient HTTP methods.
+- React Context API (AuthContextProvider) for global auth state
+- ProtectedRoute wrapper to restrict access to authenticated users
+- TanStack React query for smart caching and data refetching
+- UI Components: Mantine UI Component Library, Tabler Icons, Rechart, etc.
+
+  
 
 ---
 
