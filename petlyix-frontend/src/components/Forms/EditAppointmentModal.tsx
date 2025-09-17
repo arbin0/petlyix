@@ -66,7 +66,7 @@ export const EditAppointmentModal = ({ appointment }: EditAppointmentModalProps)
 
   return (
     <>
-      <Button size="xs" onClick={() => setOpened(true)}>
+      <Button size="xs" onClick={() => setOpened(true)} variant="filled" color="teal">
         Edit
       </Button>
 

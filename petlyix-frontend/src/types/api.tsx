@@ -48,6 +48,7 @@ export interface VetVisit {
   id: string;
   pet: string; // Pet ID
   vet: string; // Vet ID
+  vet_name: string;
   visit_date: string; // ISO date string
   reason?: string;
   notes?: string;
@@ -57,6 +58,7 @@ export interface VetVisit {
 // Appointment
 export interface Appointment {
   id: string;
+  vet_name: string;
   pet: string; // Pet ID
   vet: string; // Vet ID
   appointment_date: string; // ISO date string

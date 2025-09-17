@@ -61,6 +61,7 @@ export const PetHealthComponents = () => {
                         </Tabs.Tab>
                     </Flex>
                 </Tabs.List>
+                <Space h="lg" />
 
                 {/* Health Records */}
                 <Tabs.Panel value="health">
@@ -69,17 +70,16 @@ export const PetHealthComponents = () => {
                     {healthRecords.length === 0 ? (
                         <p>No health records found.</p>
                     ) : (
-                        healthRecords.map((record) => (
-                            <div key={record.id}>
-                                <p>Weight: {record.weight}</p>
-                                {record.height && <p>Height: {record.height}</p>}
-                                {record.medical_conditions && <p>Medical Conditions: {record.medical_conditions}</p>}
-                                {record.vaccinations && <p>Vaccinations: {record.vaccinations}</p>}
-                                {record.notes && <p>Notes: {record.notes}</p>}
-                                <hr />
-                            </div>
+                       healthRecords.map((record) => (
+                        <div key={record.id} className="card">
+                            <p><strong>Weight:</strong> {record.weight}</p>
+                            {record.height && <p><strong>Height:</strong> {record.height}</p>}
+                            {record.medical_conditions && <p><strong>Medical Conditions:</strong> {record.medical_conditions}</p>}
+                            {record.vaccinations && <p><strong>Vaccinations:</strong> {record.vaccinations}</p>}
+                            {record.notes && <p><strong>Notes:</strong> {record.notes}</p>}
+                        </div>
                         ))
-                    )}
+                                            )}
                 </Tabs.Panel>
 
                 {/* Vets */}
@@ -97,13 +97,12 @@ export const PetHealthComponents = () => {
                         <p>No vet visits found.</p>
                     ) : (
                         vetVisits.map((visit) => (
-                            <div key={visit.id}>
-                                <p>Vet: {visit.vet}</p>
-                                <p>Date: {new Date(visit.visit_date).toLocaleString()}</p>
-                                {visit.reason && <p>Reason: {visit.reason}</p>}
-                                {visit.notes && <p>Notes: {visit.notes}</p>}
-                                <hr />
-                            </div>
+                        <div key={visit.id} className="card">
+                            <p><strong>Vet:</strong> {visit.vet_name}</p>
+                            <p><strong>Date:</strong> {new Date(visit.visit_date).toLocaleString()}</p>
+                            {visit.reason && <p><strong>Reason:</strong> {visit.reason}</p>}
+                            {visit.notes && <p><strong>Notes:</strong> {visit.notes}</p>}
+                        </div>
                         ))
                     )}
                 </Tabs.Panel>
@@ -111,25 +110,17 @@ export const PetHealthComponents = () => {
                 {/* Appointments */}
                <Tabs.Panel value="appointments">
                 <AddAppointmentModal />
+                <Space h="sm" />
                 {appointments.length === 0 ? (
                     <p>No appointments found.</p>
                 ) : (
-                    appointments.map((appt) => (
-                    <Flex 
-                        key={appt.id} 
-                        justify="space-between" 
-                        align="center" 
-                        mb="sm" 
-                        p="sm" 
-                        style={{ border: '1px solid #eee', borderRadius: 6 }}
-                    >
-                        <div>
-                        <p><strong>Vet:</strong> {appt.vet}</p>
+                   appointments.map((appt) => (
+                    <div key={appt.id} className="card">
+                        <p><strong>Vet:</strong> {appt.vet_name}</p>
                         <p><strong>Date:</strong> {new Date(appt.appointment_date).toLocaleString()}</p>
                         <p><strong>Status:</strong> {appt.status}</p>
-                        </div>
                         <EditAppointmentModal appointment={appt} />
-                    </Flex>
+                    </div>
                     ))
                 )}
                 </Tabs.Panel>
