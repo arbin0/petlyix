@@ -151,7 +151,7 @@ The backend and frontend are decoupled: the backend is built with Python and Dja
 
 ## Notes / Features
 
-- All endpoints (except registration and login) require authentication (JWT).
+- All endpoints (except registration and login) require access tokens.
 - Access is limited to the logged-in user’s pets only.
 - Query parameters like petId are required for nested resources (food logs, vet visits, appointments, health).
 - Responses include meaningful error messages extracted from DRF-style validation errors.
