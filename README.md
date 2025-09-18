@@ -109,13 +109,13 @@ The backend and frontend are decoupled: the backend is built with Python and Dja
 
 ## Food Logs Endpoint
 
-| Endpoint      | Method    | Description                         | Permissions   | Query Params |
-| ------------- | --------- | ----------------------------------- | ------------- | ------------ |
-| `/pets/`      | GET       | List all pets of the logged-in user | Authenticated | -            |
-| `/pets/`      | POST      | Create a new pet                    | Authenticated | -            |
-| `/pets/{id}/` | GET       | Retrieve a specific pet             | Authenticated | -            |
-| `/pets/{id}/` | PUT/PATCH | Update a pet                        | Authenticated | -            |
-| `/pets/{id}/` | DELETE    | Delete a pet                        | Authenticated | -            |
+| Endpoint          | Method    | Description                       | Permissions   | Query Params       |
+| ----------------- | --------- | --------------------------------- | ------------- | ------------------ |
+| `/foodlogs/`      | GET       | List food logs for a specific pet | Authenticated | `petId` (required) |
+| `/foodlogs/`      | POST      | Add a new food log                | Authenticated | -                  |
+| `/foodlogs/{id}/` | GET       | Retrieve a food log               | Authenticated | -                  |
+| `/foodlogs/{id}/` | PUT/PATCH | Update a food log                 | Authenticated | -                  |
+| `/foodlogs/{id}/` | DELETE    | Delete a food log                 | Authenticated | -                  |
 
 ## Vet and Vet Visits endpoint
 
