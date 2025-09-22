@@ -1,8 +1,8 @@
 # 🐾 Petlyix
 
-**Petlyix** 
+Petlyix is a full-stack web application that helps pet owners manage their pets comprehensively, including tracking food intake, scheduling vet appointments, recording vet visits, maintaining logs and notes, and more. The app centralizes important health and nutrition information in one place, simplifying pet care. 
 
-**Petlyix** # 🐾 Petlyix is a full-stack web application designed to help pet owners manage their pets comprehensively — including tracking food intake, Vet Appointment scheduling, vet visits, logs, notes, and more. The app aims to simplify pet care by centralizing important health and nutrition information in one place.
+The backend and frontend are decoupled: the backend is built with Python and Django REST Framework (DRF) for creating API endpoints, while the frontend uses React with TypeScript.
 
 
 ## Screenshots
@@ -65,33 +65,100 @@
 
 ## 🧱 Tech Stack & Tools
 
-### ✅ Backend (Django + DRF)
+### ✅ API Backend (Django + DRF)
+
 - RESTful API using Django REST Framework
 - PostgreSQL database integration
 - Modular Django project with multiple apps (`pets`, `users`)
 - JWT authentication using `djangorestframework-simplejwt`
 
 ### ⚙️ Frontend (React with Typescript)
-- Mantine UI for UI components
+
 - Page routing using React Router
-- Custom built API client for managing all API calls
-- Custom Build Global Authentication State managemtn
-- TanStack React query for smart caching and data refetching  
+- Build Custom reusable API client with automatic JWT refresh, DRF-style error handling, JSON/FormData support, and convenient HTTP methods.
+- React Context API (AuthContextProvider) for global auth state
+- ProtectedRoute wrapper to restrict access to authenticated users
+- TanStack React query for smart caching and data refetching
+- UI Components: Mantine UI Component Library, Tabler Icons, Rechart, etc.
+
+  
 
 ---
+## API Documentation
 
-## 📁 Project Structure
+## Authentication Endpoints
 
-petlyix/
-├── backend/
-│ ├── manage.py
-│ ├── petly/ # Django project configuration
-│ ├── pets/ # App for pet profiles & calorie tracking
-│ └── users/ # App for user auth & management
-├── frontend/
-│ ├── public/
-│ └── src/
-│ ├── components/ # UI components
-│ ├── pages/ # Route-based pages
-│ └── services/ # API & helper functions
+| Endpoint          | Method | Description                                            | Permissions   |
+| ----------------- | ------ | ------------------------------------------------------ | ------------- |
+| `/register/`      | POST   | Register a new user and return access & refresh tokens | Public        |
+| `/login/`         | POST   | Log in a user and return access & refresh tokens       | Public        |
+| `/logout/`        | POST   | Log out a user by blacklisting their refresh token     | Authenticated |
+| `/user/`          | GET    | Retrieve info about the currently logged-in user       | Authenticated |
+| `/token/refresh/` | POST   | Refresh access token using refresh token               | Authenticated |
+
+## Pet Management Endpoints
+
+| Endpoint      | Method    | Description                         | Permissions   | Query Params |
+| ------------- | --------- | ----------------------------------- | ------------- | ------------ |
+| `/pets/`      | GET       | List all pets of the logged-in user | Authenticated | -            |
+| `/pets/`      | POST      | Create a new pet                    | Authenticated | -            |
+| `/pets/{id}/` | GET       | Retrieve a specific pet             | Authenticated | -            |
+| `/pets/{id}/` | PUT/PATCH | Update a pet                        | Authenticated | -            |
+| `/pets/{id}/` | DELETE    | Delete a pet                        | Authenticated | -            |
+
+
+## Food Logs Endpoint
+
+| Endpoint          | Method    | Description                       | Permissions   | Query Params       |
+| ----------------- | --------- | --------------------------------- | ------------- | ------------------ |
+| `/foodlogs/`      | GET       | List food logs for a specific pet | Authenticated | `petId` (required) |
+| `/foodlogs/`      | POST      | Add a new food log                | Authenticated | -                  |
+| `/foodlogs/{id}/` | GET       | Retrieve a food log               | Authenticated | -                  |
+| `/foodlogs/{id}/` | PUT/PATCH | Update a food log                 | Authenticated | -                  |
+| `/foodlogs/{id}/` | DELETE    | Delete a food log                 | Authenticated | -                  |
+
+## Vet and Vet Visits endpoint
+
+| Endpoint           | Method    | Description                                       | Permissions   | Query Params       |
+| ------------------ | --------- | ------------------------------------------------- | ------------- | ------------------ |
+| `/vets/`           | GET       | List all vets or filter by pet                    | Authenticated | `petId` (optional) |
+| `/vets/`           | POST      | Add a vet (validate assigned pets belong to user) | Authenticated | -                  |
+| `/vetvisits/`      | GET       | List all vet visits for a pet                     | Authenticated | `petId` (required) |
+| `/vetvisits/`      | POST      | Add a new vet visit for a pet                     | Authenticated | -                  |
+| `/vetvisits/{id}/` | PUT/PATCH | Update a vet visit                                | Authenticated | -                  |
+| `/vetvisits/{id}/` | DELETE    | Delete a vet visit                                | Authenticated | -                  |
+
+## Appointment Endpoints
+
+| Endpoint           | Method    | Description                                       | Permissions   | Query Params       |
+| ------------------ | --------- | ------------------------------------------------- | ------------- | ------------------ |
+| `/vets/`           | GET       | List all vets or filter by pet                    | Authenticated | `petId` (optional) |
+| `/vets/`           | POST      | Add a vet (validate assigned pets belong to user) | Authenticated | -                  |
+| `/vetvisits/`      | GET       | List all vet visits for a pet                     | Authenticated | `petId` (required) |
+| `/vetvisits/`      | POST      | Add a new vet visit for a pet                     | Authenticated | -                  |
+| `/vetvisits/{id}/` | PUT/PATCH | Update a vet visit                                | Authenticated | -                  |
+| `/vetvisits/{id}/` | DELETE    | Delete a vet visit                                | Authenticated | -                  |
+
+## Pet Health Endpoint
+
+| Endpoint           | Method    | Description                       | Permissions   | Query Params       |
+| ------------------ | --------- | --------------------------------- | ------------- | ------------------ |
+| `/pethealth/`      | GET       | List all health records for a pet | Authenticated | `petId` (required) |
+| `/pethealth/`      | POST      | Add a new health record           | Authenticated | -                  |
+| `/pethealth/{id}/` | PUT/PATCH | Update a health record            | Authenticated | -                  |
+| `/pethealth/{id}/` | DELETE    | Delete a health record            | Authenticated | -                  |
+
+
+## Notes / Features
+
+- All endpoints (except registration and login) require access tokens.
+- Access is limited to the logged-in user’s pets only.
+- Query parameters like petId are required for nested resources (food logs, vet visits, appointments, health).
+- Responses include meaningful error messages extracted from DRF-style validation errors.
+
+Author: arbin0
+Email: arbinkhadka10@gmail.com
+
+
+
 
